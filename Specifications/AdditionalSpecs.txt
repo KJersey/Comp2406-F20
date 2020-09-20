@@ -1,0 +1,13 @@
+TL;DR
+- 1st project checkin Oct 5th-9th
+- Rough design and layout of client side should be done
+- User Profile page
+- movie page view
+- person view page
+- use JS to generate page with given movie data
+- design / decide on interface to add data to website (how to add movies)
+- extra: consider algorithm for recommending similar movies, should work offline
+
+The majority of the first project check-ins will occur the week of October 5th-9th, with some check-ins possibly occurring the week prior. At this point, we will have covered the general client-side (i.e., browser code) content of the course. The expectation will be that you should have a rough implementation of the main parts of your client interface completed by this point. The overall design will likely change some over the term, but you should have a good idea of what the main parts will look like. You will not be expected to have implemented anything for the server (of course, you won't be penalized for getting ahead if you do). For the various projects, this could mean:
+
+2. Movie Database: You have implemented a mock up of the user profile page, movie view page, person view page, and any other pages. You have used some of the provided movie data in your client Javascript to generate content dynamically on the page. You have a way to simulate a contributing user adding to data stored in client Javascript and can update a page dynamically when that data changes. You have considered how you will implement recommendations for movies and possibly implemented an offline 'similar movies' solution using the provided data.
