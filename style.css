@@ -1,0 +1,79 @@
+body
+{
+    background-color: #555555;
+
+    margin: 0px;
+    padding: 0px;
+}
+
+div.topBar button
+{
+    position: absolute;
+
+    /*Button*/
+    background-color: #4CAF50;
+    border: none;
+    padding: 15px 32px;
+    text-align: center;
+    outline-width: 0;
+
+    /*Font*/
+    color: white;
+    font-size: 16px; 
+}
+
+div.topBar button:hover
+{
+    background-color: #6bc46e;
+}
+
+div.topBar #home
+{
+    /*Position*/
+    top: 32px;
+    left: 32px;
+}
+
+div.topBar #sign-in
+{
+    /*Position*/
+    top: 32px;
+    right: 32px;
+}
+
+div.searchBar
+{
+    /*Centre of page*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+
+div.searchBar #search
+{
+    /*Size*/
+    width: 600px;
+    height: 30px;
+    outline-width: 0;
+    border: none;
+    padding: 0px;
+    vertical-align: bottom;
+
+    /*Font*/
+    font-size: 24px;
+}
+
+div.searchBar #filter
+{
+    /*Size*/
+    height: 30px;
+    outline-width: 0;
+    border: none;
+    padding: 0px;
+    vertical-align: bottom;
+
+    /*Font*/
+    font-size: 12px;
+}
