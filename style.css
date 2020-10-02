@@ -6,6 +6,17 @@ body
     padding: 0px;
 }
 
+div.topBar #title
+{
+    position: absolute;
+    top: 32px;
+    left: 50%;
+    transform: translate(-50%, 20%);
+
+    color: #4CAF50;
+    font-size: 24pt;
+}
+
 div.topBar button
 {
     position: absolute;
