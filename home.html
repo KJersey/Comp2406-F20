@@ -6,20 +6,20 @@
     <head>
         <meta name="viewport" content="width=device-width" charset="UTF-8">
         <link rel="stylesheet" href="style.css">
+        <script src="script.js"></script>
     </head>
-    <body>
+    <body id="homepage"">
         <div class="topBar">
-            <button id = "home" type="button">
+            <button id = "home" type="button" onclick="home()">
                 Home
             </button>
             <span id = "title"> C2MD </span>
-            <button id = "sign-in" type="button">
+            <button id = "sign-in" type="button" onclick="signIn()">
                 Sign In
             </button>
         </div>
         <div class="searchBar">
-            <input id="search" placeholder="Search">
-            </input>
+            <input id="search" placeholder="Search"></input>
             <select id="filter">
                 <option value="All">All</option>
                 <option value="Movie">Movie</option>
