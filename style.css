@@ -52,7 +52,9 @@ div.topBar #sign-in
     right: 32px;
 }
 
-div.searchBar
+/*Home*/
+
+#homepage div.searchBar
 {
     /*Centre of page*/
     position: absolute;
@@ -62,7 +64,7 @@ div.searchBar
     white-space: nowrap;
 }
 
-div.searchBar #search
+#homepage div.searchBar #search
 {
     /*Size*/
     width: 600px;
@@ -76,7 +78,7 @@ div.searchBar #search
     font-size: 24px;
 }
 
-div.searchBar #filter
+#homepage div.searchBar #filter
 {
     /*Size*/
     height: 30px;
@@ -87,4 +89,64 @@ div.searchBar #filter
 
     /*Font*/
     font-size: 12px;
+}
+
+/*Sign In*/
+
+#signpage div.signdiv
+{
+    /*Centre of page*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+
+    width: -50%;
+}
+
+#signpage div.signdiv label, input
+{
+    display: inline-block;
+    vertical-align: baseline;
+    width: 150px;
+}
+
+#signpage div.signdiv label
+{
+    color: #cdcdcd;
+    font-size: 30px;
+}
+
+#signpage div.signdiv input
+{
+    height: 30px;
+    width: 250px;
+
+    outline-width: 0px;
+    box-sizing: border-box;
+}
+
+#signpage div.signbuttons
+{
+    position: absolute;
+    transform: translate(50%, 100%);
+}
+
+#signpage div.signbuttons button
+{
+    background-color: #4CAF50;
+    border: none;
+    padding: 8px 16px;
+    text-align: center;
+    outline-width: 0;
+
+    /*Font*/
+    color: white;
+    font-size: 16px; 
+}
+
+#signpage div.signbuttons button:hover
+{
+    background-color: #6bc46e;
 }
