@@ -1,265 +1,222 @@
-body
-{
-    background-color: #555555;
+body {
+  background-color: #555555;
 
-    margin: 0px;
-    font-family: Arial;
-    padding: 20px;
-    background: #555555;
+  margin: 0px;
+  font-family: Arial;
+  padding: 20px;
+  background: #555555;
 }
 
-div.header
-{
-    padding: 40px;
-    font-size: 40px;
-    text-align: center;
-    background: white;
+div.header {
+  padding: 40px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
 }
 
-div.topBar #title
-{
-    position: absolute;
-    top: 32px;
-    left: 50%;
-    transform: translate(-50%, 20%);
+div.topBar #title {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translate(-50%, 20%);
 
-    color: #4CAF50;
-    font-size: 24pt;
+  color: #4caf50;
+  font-size: 24pt;
 }
 
-div.topBar button
-{
-    position: absolute;
+div.topBar button {
+  position: absolute;
 
-    /*Button*/
-    background-color: #4CAF50;
-    border: none;
-    padding: 15px 32px;
-    text-align: center;
-    outline-width: 0;
+  /*Button*/
+  background-color: #4caf50;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  outline-width: 0;
 
-    /*Font*/
-    color: white;
-    font-size: 16px; 
+  /*Font*/
+  color: white;
+  font-size: 16px;
 }
 
-div.topBar button:hover
-{
-    background-color: #6bc46e;
+div.topBar button:hover {
+  background-color: #6bc46e;
 }
 
-div.topBar #home
-{
-    /*Position*/
-    top: 32px;
-    left: 32px;
+div.topBar #home {
+  /*Position*/
+  top: 32px;
+  left: 32px;
 }
 
-div.topBar #sign-in
-{
-    /*Position*/
-    top: 32px;
-    right: 32px;
+div.topBar #sign-in {
+  /*Position*/
+  top: 32px;
+  right: 32px;
 }
 
 /*Home*/
 
-#homepage div.searchBar
-{
-    /*Centre of page*/
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
+#homepage div.searchBar {
+  /*Centre of page*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
 }
 
-#homepage div.searchBar #search
-{
-    /*Size*/
-    width: 600px;
-    height: 30px;
-    outline-width: 0;
-    border: none;
-    padding: 0px;
-    vertical-align: bottom;
+#homepage div.searchBar #search {
+  /*Size*/
+  width: 600px;
+  height: 30px;
+  outline-width: 0;
+  border: none;
+  padding: 0px;
+  vertical-align: bottom;
 
-    /*Font*/
-    font-size: 24px;
+  /*Font*/
+  font-size: 24px;
 }
 
-#homepage div.searchBar #filter
-{
-    /*Size*/
-    height: 30px;
-    outline-width: 0;
-    border: none;
-    padding: 0px;
-    vertical-align: bottom;
+#homepage div.searchBar #filter {
+  /*Size*/
+  height: 30px;
+  outline-width: 0;
+  border: none;
+  padding: 0px;
+  vertical-align: bottom;
 
-    /*Font*/
-    font-size: 12px;
+  /*Font*/
+  font-size: 12px;
 }
 
 /*Sign In*/
 
-#signpage div.signdiv
-{
-    /*Centre of page*/
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
+#signpage div.signdiv {
+  /*Centre of page*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
 
-    width: -50%;
+  width: -50%;
 }
 
-#signpage div.signdiv label, input
-{
-    display: inline-block;
-    vertical-align: baseline;
-    width: 150px;
+#signpage div.signdiv label,
+input {
+  display: inline-block;
+  vertical-align: baseline;
+  width: 150px;
 }
 
-#signpage div.signdiv label
-{
-    color: #cdcdcd;
-    font-size: 30px;
+#signpage div.signdiv label {
+  color: #cdcdcd;
+  font-size: 30px;
 }
 
-#signpage div.signdiv input
-{
-    height: 30px;
-    width: 250px;
+#signpage div.signdiv input {
+  height: 30px;
+  width: 250px;
 
-    outline-width: 0px;
-    box-sizing: border-box;
+  outline-width: 0px;
+  box-sizing: border-box;
 }
 
-#signpage div.signbuttons
-{
-    position: absolute;
-    transform: translate(50%, 100%);
+#signpage div.signbuttons {
+  position: absolute;
+  transform: translate(50%, 100%);
 }
 
-#signpage div.signbuttons button
-{
-    background-color: #4CAF50;
-    border: none;
-    padding: 8px 16px;
-    text-align: center;
-    outline-width: 0;
+#signpage div.signbuttons button {
+  background-color: #4caf50;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  outline-width: 0;
 
-    /*Font*/
-    color: white;
-    font-size: 16px; 
+  /*Font*/
+  color: white;
+  font-size: 16px;
 }
 
-#signpage div.signbuttons button:hover
-{
-    background-color: #6bc46e;
+#signpage div.signbuttons button:hover {
+  background-color: #6bc46e;
 }
 
-#profilepage div.row, #moviepage div.row
-{
-    width: 100%;
+#profilepage div.row,
+#moviepage div.row {
+  width: 100%;
 }
 
 /* Create two unequal columns that floats next to each other */
 /* Left column */
-#profilepage div.leftcolumn, #moviepage div.leftcolumn
-{
-    float: left;
-    width: 25%;
+#profilepage div.leftcolumn,
+#moviepage div.leftcolumn {
+  float: left;
+  width: 25%;
 }
 
 /* Right column */
-#profilepage div.rightcolumn, #moviepage div.rightcolumn
-{
-    float: left;
-    width: 72%;
-    padding-left: 20px;
+#profilepage div.rightcolumn,
+#moviepage div.rightcolumn {
+  float: left;
+  width: 72%;
+  padding-left: 20px;
 }
 
 /*Middle Column*/
-#profilepage div.column, #moviepage div.column
-{
-    float: left;
-    width: 48%;
-    padding-left: 10px;
+#profilepage div.column,
+#moviepage div.column {
+  float: left;
+  width: 48%;
+  padding-left: 10px;
 }
 
 /* Profile Picture */
-#profilepage div.profilepic
-{
-    width: auto;
-    height: 400px;
-    background-size: 100% 100%;
-    background-image: url('Images/pepeds.gif');
+#profilepage div.profilepic {
+  width: auto;
+  height: 400px;
+  background-size: 100% 100%;
+  background-image: url("Images/pepeds.gif");
 }
 
-#moviepage div.movieimage
-{
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    right: 50%;
-    width: 50%;
-    height: 400px;
-    background-size: 100% 100%;
-    background-image: url('./Images/treasureplanetcard.jpg');
+#moviepage div.movieimage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  right: 50%;
+  width: 50%;
+  height: 400px;
+  background-size: 100% 100%;
+  background-image: url("./Images/treasureplanetcard.jpg");
 }
 
 /* Add a card effect for articles */
-#profilepage div.card, #moviepage div.card
-{
-    background-color: white;
-    padding: 10px;
-    margin-top: 20px;
-<<<<<<< HEAD
+#profilepage div.card,
+#moviepage div.card {
+  background-color: white;
+  padding: 10px;
+  margin-top: 20px;
+  height: 100%;
 }
 
-||||||| 9cb233b
+#profilepage .bigtext,
+#moviepage .bigtext {
+  font-size: xx-large;
+  text-align: center;
 }
 
-/* Clear floats after the columns */
-#profilepage div.row:after, #moviepage div.row:after
-{
-    content: "";
-    display: table;
-    clear: both;
+#profilepage .littletext,
+#moviepage .littletext {
+  font-size: large;
+  text-align: center;
 }
 
-/* Footer */
-#profilepage div.footer, #moviepage div.footer
-{
-    padding: 20px;
-    text-align: center;
-    background: #ddd;
-    margin-top: 20px;
-}
-
-=======
-    height: 100%;
-}
-
->>>>>>> 287974b182b14cd65950efe6658b1bfaa93d8249
-#profilepage .bigtext, #moviepage .bigtext
-{
-    font-size: xx-large;
-    text-align: center;
-}
-
-#profilepage .littletext, #moviepage .littletext
-{
-    font-size: large;
-    text-align: center;
-}
-
-#profilepage div.column, #moviepage div.column
-{
-    float: left;
-    width: 48%;
-    padding-left: 10px;
+#profilepage div.column,
+#moviepage div.column {
+  float: left;
+  width: 48%;
+  padding-left: 10px;
 }
