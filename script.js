@@ -1,6 +1,11 @@
-function signIn()
+function signinPage()
 {
     document.location.href = "signin.html";
+}
+
+function signIn()
+{
+    document.location.href = "userprofile.html";
 }
 
 function home()
