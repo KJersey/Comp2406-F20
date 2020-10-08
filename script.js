@@ -7,3 +7,12 @@ function home()
 {
     document.location.href = "home.html";
 }
+
+function search(ele)
+{
+    ele = ele || window.event;
+    if(ele.keyCode == 13)
+    {
+        document.location.href = "movie.html";
+    }
+}
