@@ -145,30 +145,28 @@ input {
   background-color: #6bc46e;
 }
 
-#profilepage div.row,
-#moviepage div.row {
+.pageview div.row
+{
   width: 100%;
 }
 
 /* Create two unequal columns that floats next to each other */
 /* Left column */
-#profilepage div.leftcolumn,
-#moviepage div.leftcolumn {
+.pageview div.leftcolumn{
   float: left;
   width: 25%;
 }
 
 /* Right column */
-#profilepage div.rightcolumn,
-#moviepage div.rightcolumn {
+.pageview div.rightcolumn
+{
   float: left;
   width: 72%;
   padding-left: 20px;
 }
 
 /*Middle Column*/
-#profilepage div.column,
-#moviepage div.column {
+.pageview div.column{
   float: left;
   width: 48%;
   padding-left: 10px;
@@ -194,28 +192,24 @@ input {
 }
 
 /* Add a card effect for articles */
-#profilepage div.card,
-#moviepage div.card {
+.pageview div.card{
   background-color: white;
   padding: 10px;
   margin-top: 20px;
   height: 100%;
 }
 
-#profilepage .bigtext,
-#moviepage .bigtext {
+.pageview .bigtext{
   font-size: xx-large;
   text-align: center;
 }
 
-#profilepage .littletext,
-#moviepage .littletext {
+.pageview .littletext{
   font-size: large;
   text-align: center;
 }
 
-#profilepage div.column,
-#moviepage div.column {
+.pageview div.column{
   float: left;
   width: 48%;
   padding-left: 10px;
