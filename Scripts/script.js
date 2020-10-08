@@ -21,3 +21,13 @@ function search(ele)
         document.location.href = "movie.html";
     }
 }
+
+function movie()
+{
+    document.location.href = "movie.html";
+}
+
+function person()
+{
+    document.location.href = "person.html";
+}
