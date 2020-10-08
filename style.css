@@ -184,7 +184,7 @@ div.profilepic {
     width: auto;
     height: 400px;
     background-size: 100% 100%;
-    background-image: url('pepeds.gif');
+    background-image: url('./Images/pepeds.gif');
 }
 
 /* Add a card effect for articles */
@@ -192,21 +192,7 @@ div.card {
     background-color: white;
     padding: 10px;
     margin-top: 20px;
-}
-
-/* Clear floats after the columns */
-div.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Footer */
-div.footer {
-    padding: 20px;
-    text-align: center;
-    background: #ddd;
-    margin-top: 20px;
+    height: 100%;
 }
 
 .bigtext {
