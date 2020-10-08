@@ -190,7 +190,7 @@ div.profilepic {
 /* Add a card effect for articles */
 div.card {
     background-color: white;
-    padding: 20px;
+    padding: 10px;
     margin-top: 20px;
 }
 
@@ -207,4 +207,20 @@ div.footer {
     text-align: center;
     background: #ddd;
     margin-top: 20px;
+}
+
+.bigtext {
+    font-size: xx-large;
+    text-align: center;
+}
+
+.stats {
+    font-size: large;
+    text-align: center;
+}
+
+div.column {
+    float: left;
+    width: 48%;
+    padding-left: 10px;
 }

@@ -1,25 +1,46 @@
 <!DOCTYPE html>
 <html>
-    <title>
-        Comp 2406 Movie Database
-    </title>
-    <head>
-        <meta name="viewport" content="width=device-width" charset="UTF-8">
-        <link rel="stylesheet" href="style.css">
-    </head>
-    <body>
-        <div class="topBar">
-            <button id = "home" type="button">
-                Home
-            </button>
-            <span id = "title"> C2MD </span>
-            <button id = "sign-in" type="button">
-                Sign In
-            </button>
-        </div>
+  <title>Comp 2406 Movie Database</title>
+  <head>
+    <meta name="viewport" content="width=device-width" charset="UTF-8" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-        <div class="contentPage">
-            hello
+  <body>
+    <div class="header">
+      <div class="topBar">
+        <button id="home" type="button" onclick="home()">Home</button>
+        <span id="title"> C2MD </span>
+        <button id="sign-in" type="button" onclick="signIn()">Sign In</button>
+      </div>
+    </div>
+    
+    <div class="row">
+        <div class="leftcolumn">
+            <div class="card">
+                <div class="profilepic"></div>
+                <p class="bigtext">John Doe</p>
+                <p class="stats">6 Followers, Following 24</p>
+            </div>
+            <div class="card">
+                <p>Joined at date: September 16th 2020</p>
+                <p></p>
+            </div>
         </div>
-    </body>
+        <div class="rightcolumn">
+            <div class="column">
+                <div class="card">
+                    <p style="font-size: larger; text-align: center;">Movies Recently Watched</p>
+                    
+                </div>
+            </div>
+            <div class="column">
+                <div class="card">
+                    <p style="font-size: larger; text-align: center;">Reviews</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+  </body>
 </html>
