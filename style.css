@@ -201,7 +201,11 @@ div.topBar #sign-in
 
 #moviepage div.movieimage
 {
-    width: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    right: 50%;
+    width: 50%;
     height: 400px;
     background-size: 100% 100%;
     background-image: url('./Images/treasureplanetcard.jpg');
