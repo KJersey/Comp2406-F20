@@ -161,6 +161,11 @@ div.topBar #sign-in
     background-color: #6bc46e;
 }
 
+#profilepage div.row, #moviepage div.row
+{
+    width: 100%;
+}
+
 /* Create two unequal columns that floats next to each other */
 /* Left column */
 #profilepage div.leftcolumn, #moviepage div.leftcolumn
@@ -175,6 +180,14 @@ div.topBar #sign-in
     float: left;
     width: 72%;
     padding-left: 20px;
+}
+
+/*Middle Column*/
+#profilepage div.column, #moviepage div.column
+{
+    float: left;
+    width: 48%;
+    padding-left: 10px;
 }
 
 /* Profile Picture */
@@ -202,23 +215,6 @@ div.topBar #sign-in
     margin-top: 20px;
 }
 
-/* Clear floats after the columns */
-#profilepage div.row:after, #moviepage div.row:after
-{
-    content: "";
-    display: table;
-    clear: both;
-}
-
-/* Footer */
-#profilepage div.footer, #moviepage div.footer
-{
-    padding: 20px;
-    text-align: center;
-    background: #ddd;
-    margin-top: 20px;
-}
-
 #profilepage .bigtext, #moviepage .bigtext
 {
     font-size: xx-large;
@@ -229,11 +225,4 @@ div.topBar #sign-in
 {
     font-size: large;
     text-align: center;
-}
-
-#profilepage div.column, #moviepage div.column
-{
-    float: left;
-    width: 48%;
-    padding-left: 10px;
 }
