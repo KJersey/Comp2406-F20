@@ -204,7 +204,7 @@ div.topBar #sign-in
     width: auto;
     height: 400px;
     background-size: 100% 100%;
-    background-image: url('./Images/treasureplanetcard.jpg');
+    background-image: url('./Images/pepeds.gif');
 }
 
 /* Add a card effect for articles */
@@ -251,11 +251,4 @@ div.topBar #sign-in
 {
     font-size: large;
     text-align: center;
-}
-
-#profilepage div.column, #moviepage div.column
-{
-    float: left;
-    width: 48%;
-    padding-left: 10px;
 }
