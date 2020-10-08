@@ -9,21 +9,24 @@
         <script src="script.js"></script>
     </head>
     <body id="signpage">
-        <div class="topBar">
-            <button id = "home" type="button" onclick="home()">
-                Home
-            </button>
-            <span id = "title"> C2MD </span>
-            <button id = "sign-in" type="button" onclick="signIn()">
-                Sign In
-            </button>
+        <div class="header">
+            <div class="topBar">
+                <button id = "home" type="button" onclick="home()">
+                    Home
+                </button>
+                <span id = "title"> C2MD </span>
+                <button id = "sign-in" type="button" onclick="signinPage()">
+                    Sign In
+                </button>
+            </div>
         </div>
+
         <div class="signdiv">
             <label for="user">Username: </label><input id="user"></input> <br>
             <label for="user">Password: </label><input id="pass" type="password"></input> <br>
             <div class="signbuttons">
-                <button id="signin">Sign In</button>
-                <button id="newuser">New User</button>
+                <button id="signin" onclick="signIn()">Sign In</button>
+                <button id="newuser" onclick="signIn()">New User</button>
             </div>
         </div>
     </body>

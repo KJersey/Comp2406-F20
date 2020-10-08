@@ -3,7 +3,17 @@ body
     background-color: #555555;
 
     margin: 0px;
-    padding: 0px;
+    font-family: Arial;
+    padding: 20px;
+    background: #555555;
+}
+
+div.header
+{
+    padding: 40px;
+    font-size: 40px;
+    text-align: center;
+    background: white;
 }
 
 div.topBar #title
@@ -151,36 +161,33 @@ div.topBar #sign-in
     background-color: #6bc46e;
 }
 
-body {
-    font-family: Arial;
-    padding: 20px;
-    background: #555555;
-  }
-
-/* Header/Blog Title */
-div.header {
-    padding: 40px;
-    font-size: 40px;
-    text-align: center;
-    background: white;
-}
-
 /* Create two unequal columns that floats next to each other */
 /* Left column */
-div.leftcolumn {
+#profilepage div.leftcolumn, #moviepage div.leftcolumn
+{
     float: left;
     width: 25%;
 }
 
 /* Right column */
-div.rightcolumn {
+#profilepage div.rightcolumn, #moviepage div.rightcolumn
+{
     float: left;
     width: 72%;
     padding-left: 20px;
 }
 
 /* Profile Picture */
-div.profilepic {
+#profilepage div.profilepic
+{
+    width: auto;
+    height: 400px;
+    background-size: 100% 100%;
+    background-image: url('Images/pepeds.gif');
+}
+
+#moviepage div.movieimage
+{
     width: auto;
     height: 400px;
     background-size: 100% 100%;
@@ -188,24 +195,28 @@ div.profilepic {
 }
 
 /* Add a card effect for articles */
-div.card {
+#profilepage div.card, #moviepage div.card
+{
     background-color: white;
     padding: 10px;
     margin-top: 20px;
     height: 100%;
 }
 
-.bigtext {
+#profilepage .bigtext, #moviepage .bigtext
+{
     font-size: xx-large;
     text-align: center;
 }
 
-.stats {
+#profilepage .littletext, #moviepage .littletext
+{
     font-size: large;
     text-align: center;
 }
 
-div.column {
+#profilepage div.column, #moviepage div.column
+{
     float: left;
     width: 48%;
     padding-left: 10px;

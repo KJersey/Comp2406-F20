@@ -8,15 +8,43 @@
         <link rel="stylesheet" href="style.css">
         <script src="script.js"></script>
     </head>
-    <body id="movie">
-        <div class="topBar">
-            <button id = "home" type="button" onclick="home()">
-                Home
-            </button>
-            <span id = "title"> C2MD </span>
-            <button id = "sign-in" type="button" onclick="signIn(this)">
-                Sign In
-            </button>
+    <body id="moviepage">
+        <div class="header">
+            <div class="topBar">
+                <button id = "home" type="button" onclick="home()">
+                    Home
+                </button>
+                <span id = "title"> C2MD </span>
+                <button id = "sign-in" type="button" onclick="signinPage()">
+                    Sign In
+                </button>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="leftcolumn">
+                <div class="card">
+                    <div class="movieimage"></div>
+                    <p class="bigtext">Treasure Planet</p>
+                    <p class="littletext">November 27, 2002</p>
+                </div>
+                <div class="card">
+                    <p class="bigtext">Plot</p>
+                    <p class="littletext">Movie Stuff</p>
+                </div>
+            </div>
+            <div class="rightcolumn">
+                <div class="column">
+                    <div class="card">
+                        <p class="littletext">Actors/Actresses</p>
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card">
+                        <p class="littletext">Reviews</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
