@@ -1,4 +1,5 @@
-Jersey Aubin-Déry & Malcolm Smith
+Jersey Aubin-Déry 101079607
+Partner: Malcolm Smith
 
 Movie Database
 
