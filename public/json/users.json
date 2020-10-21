@@ -1,0 +1,5 @@
+[
+    {"Username" : "Jersey", "Password":"shore", "Contributor": true, "Reviews" : [{"MovieID" : "tt0113189", "Sscore" : 5}, {"MovieID" : "tt0114576", "Score" : 4}]},
+    {"Username" : "Malcolm", "Password": "Password1", "Contributor": true, "Reviews" : [{"MovieID" : "tt0114319", "Score" : 4}]},
+    {"Username" : "Dave", "Password" : "frodo", "Contributor": false, "Reviews": []}
+]

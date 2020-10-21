@@ -1,11 +1,11 @@
 function signinPage()
 {
-    document.location.href = "signin.html";
+    document.location.href = "signin";
 }
 
 function signIn()
 {
-    document.location.href = "userprofile.html";
+    document.location.href = "userprofile";
 }
 
 function home()
@@ -18,16 +18,16 @@ function search(ele)
     ele = ele || window.event;
     if(ele.keyCode == 13)
     {
-        document.location.href = "movie.html";
+        document.location.href = "movie";
     }
 }
 
 function movie()
 {
-    document.location.href = "movie.html";
+    document.location.href = "movie";
 }
 
 function person()
 {
-    document.location.href = "person.html";
+    document.location.href = "person";
 }
