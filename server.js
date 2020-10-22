@@ -389,8 +389,8 @@ app.get('/deletePerson/:name', (req, res) =>
     res.send(deletePerson(req.params.name));
 });
 
-//Will be post
-app.get('/modifyPerson/:name&:prop=:val', (req, res) =>
+//Internal, here for testing
+app.get('/modifyPerson/name=:name&:prop=:val', (req, res) =>
 {
     res.send(modifyPerson(req.params.name, req.params.prop, req.params.val));
 });
