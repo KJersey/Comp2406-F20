@@ -1,11 +1,12 @@
 const express = require('express');
 const fs = require('fs');
+const { get } = require('http');
 const app = express();
 const path = require('path');
 const { isContext } = require('vm');
 const port = 8000;
 
-let movies = require(__dirname + '/public/json/movie-data.json');
+let movies = require(__dirname + '/public/json/movie-data-short.json');
 let people;
 let users = require(__dirname + '/public/json/users.json');
 
@@ -14,96 +15,98 @@ app.use(express.static(__dirname + '/public'));
 function init()
 {
     console.log("Starting Up");
-    console.log(movies);
+    // console.log(movies);
 
     people = [];
 
     for(movie in movies)
     {
-        title = movies[movie]["Title"];
+        imdbID = movies[movie].imdbID;
 
         //Get the director, see if they exist in the person array
-        director = movies[movie]["Director"];
-        let i = people.findIndex(p => p["Name"] === director);
+        let director = movies[movie].Director;
+        let i = people.findIndex(p => p.Name === director);
         if(i == -1)
         {
             //If they don't, add them with them directing the title
-            people.push({Name : director, Directed : [title], Wrote : [], Acted : []});
+            people.push({Name : director, Directed : [imdbID], Wrote : [], Acted : []});
         }
         else
         {
             //If they exist, see if they already direct the title, if not, add that they direct it
-            if(!people[i]["Directed"].some (e => e === title)) people[i]["Directed"].push(title);
+            if(!people[i].Directed.some (e => e === imdbID)) people[i].Directed.push(imdbID);
         }
 
         //Get the list of writers, and check for each writer
-        writers = movies[movie]["Writer"].split(', ');
+        let writers = movies[movie].Writer.split(', ');
         for(w in writers)
         {
             //If they exist in the person array
-            writer = writers[w].split(' (')[0];
-            i = people.findIndex(p => p["Name"] === writer);
+            let writer = writers[w].split(' (')[0];
+            i = people.findIndex(p => p.Name === writer);
             if(i == -1)
             {
                 //If not, add them with them writing the title
-                people.push({Name : writer, Directed : [], Wrote : [title], Acted : []});
+                people.push({Name : writer, Directed : [], Wrote : [imdbID], Acted : []});
             }
             else
             {
                 //If they exist, see if they already wrote the title, if not, add that they wrote it
-                if(!people[i]["Wrote"].some (e => e === title)) people[i]["Wrote"].push(title);
+                if(!people[i].Wrote.some (e => e === imdbID)) people[i].Wrote.push(imdbID);
             }
         }
 
         //Get the list of actors, and check for each actors
-        actors   = movies[movie]["Actors"].split(', ');
+        let actors = movies[movie].Actors.split(', ');
         for(a in actors)
         {
             //If they exist in the person array
-            actor = actors[a]
-            i = people.findIndex(p => p["Name"] === actor);
+            let actor = actors[a]
+            i = people.findIndex(p => p.Name === actor);
             if(i == -1)
             {
                 //If not, add them with them acting in the title
-                people.push({Name : actor, Directed : [], Wrote : [], Acted : [title]});
+                people.push({Name : actor, Directed : [], Wrote : [], Acted : [imdbID]});
             }
             else
             {
                 //If they exist, see if they already acted in the title, if not, add that they acted in it
-                if(!people[i]["Acted"].some (e => e === title)) people[i]["Acted"].push(title);
+                if(!people[i]["Acted"].some (e => e === imdbID)) people[i].Acted.push(imdbID);
             }
         }
     }
 
-    console.log(people);
+    console.log("Finished Starting");
 }
 
 
-//USER
+//---------------------------------------USER---------------------------------------
 
-// validuser
 function isValidUser(user) {
     if (!user) {
         return false;
     }
-    if (!users.hasOwnProperty(user.Username) || !user.Username) {
+
+    if (!user.hasOwnProperty("Username") || !user.hasOwnProperty("Password")) {
         return false;
     }
+
     return true;
 }
 
-// createuser
+function getUser(username) {
+    return users.find(user => user.Username === username);
+}
+
+function searchUser(query) {
+    // if query = "dragon", returns array of all users which contain dragon in their username
+    return users.filter(user => user.Username.toLowerCase().includes(query.toLowerCase()));
+}
+
 function createUser(newUser) {
 
-    newUser = JSON.parse(newUser);
-
-    if (!newUser.hasOwnProperty("Username") || !newUser.hasOwnProperty("Password")) {
-        return null;
-    }
-
-    if (getUser(newUser.Username)) {
-        return null;
-    }
+    if(!isValidUser(newUser)) return null;
+    if(getUser(newUser.Username)) return null;
 
     newUser.Contributor = false;
     newUser.Reviews = [];
@@ -112,149 +115,288 @@ function createUser(newUser) {
     return newUser;
 }
 
-// deleteuser
-function deleteUser(user) {
-    if (!isValidUser(user)) {
-        return null;
-    }
-
-    users.remove(user);
+function deleteUser(username) {
+    let user = getUser(username);
+    users = users.filter(u => u !== user);
+    return users;
 }
 
-// iscontributor
 function isContributor(user) {
     if(!user) return false;
     if(!user.hasOwnProperty('Contributor')) return false;
     return user.Contributor;
 }
 
-// getuser
-function getUser(username) {
-    return users.find(user => user.Username === username);
-}
+//---------------------------------------MOVIE---------------------------------------
 
-// searchusers
-function searchUser(query) {
-    // if query = "dragon", returns array of all users which contain dragon in their username
-    return users.filter(user => user.Username.toLowerCase().includes(query.toLowerCase()));
-}
-
-//MOVIE
-
-// createmovie(user.iscontributor, movie)
-// createuser
-function createMovie(newMovie) {
-
-    if (!newMovie.Title || !newMovie.imdbID) {
-        return null;
-    }
-
-    if (movies.hasOwnProperty(newMovie.idmbID)) {
-        return null;
-    }
-
-    // set default props
-}
-
-// deletemovie(user.iscontributor, movie)
-// isValidMovie
 function isValidMovie(movie) {
     if (!movie) {
         return false;
     }
-    if (!movies.hasOwnProperty(movie.imdbID) || !movie.imdbID) {
+
+    if (!movie.hasOwnProperty("Title") || !movie.hasOwnProperty("imdbID")) {
         return false;
     }
+
     return true;
 }
 
-// searchmovie
+function getMovie(movieID) {
+    return movies.find(movie => movie.imdbID === movieID);
+}
+
 function searchMovie(query) {
     // if query = "dragon", returns array of all users which contain dragon in their username
     return movies.filter(movie => movie.Title.toLowerCase().includes(query.toLowerCase()));
 }
 
-// getmovie
-function getMovie(movieID) {
-    return movies.find(movie => movie.imdbID === movieID);
-}
+function createMovie(newMovie) {
 
-// modify movie
-function modifyMovie(movie) {
-    if (!isValidMovie()) {
-        return null;
+    if(!isValidMovie(newMovie)) return null;
+    if(getMovie(newMovie.imdbID)) return null;
+
+    for (prop in movies[0]) {
+        if(!newMovie[prop]) {
+            newMovie[prop] = 'N/A';
+        }
     }
+
+    movies.push(newMovie);
+
+    return newMovie;
 }
-// getsimilar (entirely random for now)
-// getrecommendations (multiple getsimilar)
 
-//PERSON
+function deleteMovie(movieID) {
+    let movie = getMovie(movieID);
+    movies = movies.filter(m => m !== movie);
+    return movies;
+}
 
-// createperson
-// delete person
-// search person
-// modify person
+function modifyMovie(movieID, prop, val) {
+    let movie = getMovie(movieID);
+    if(!movie) return null;
+
+    if(prop != "imdbID" && movie.hasOwnProperty(prop)) {
+        movie[prop] = val;
+    }
+
+    return movie;
+}
+
+function getSimilar(title) {
+    return movies[Math.floor(Math.random() * movies.length)];
+}
+
+function getRecommendations(username) {
+    let recommended = [];
+    
+    for(let i = 0; i < 5; i++) {
+        let movie = getSimilar(null);
+        if(!recommended.includes(movie)) recommended.push(movie);
+    }
+
+    return recommended;
+}
+
+//---------------------------------------PERSON---------------------------------------
+
+function isValidPerson(person) {
+    if (!person) {
+        return false;
+    }
+
+    if (!person.hasOwnProperty("Name")) {
+        return false;
+    }
+
+    return true;
+}
+
+function getPerson(personName) {
+    return people.find(person => person.Name === personName);
+}
+
+function searchPerson(query) {
+    // if query = "dragon", returns array of all users which contain dragon in their username
+    return people.filter(person => person.Name.toLowerCase().includes(query.toLowerCase()));
+}
+
+
+function createPerson(newPerson) {
+
+
+    if(!isValidPerson(newPerson)) return null;
+    if(getPerson(newPerson.imdbID)) return null;
+
+    newPerson.Directed = [];
+    newPerson.Wrote = [];
+    newPerson.Acted = [];
+
+    people.push(newPerson);
+
+    return newPerson;
+}
+
+function deletePerson(personName) {
+    let person = getPerson(personName);
+    people = people.filter(p => p !== person);
+    return people;
+}
+
+function modifyPerson(personName, prop, val) {
+    let person = getPerson(personName);
+    if(!person) return null;
+
+    if(prop != "Name" && person.hasOwnProperty(prop)) {
+        person[prop] = val;
+    }
+
+    return person;
+}
+
+//--------------------------Pages--------------------------//
 
 app.get('/', (req, res) =>
 {
-    res.sendFile(path.join(__dirname + '/index.html'));
+    res.render(path.join(__dirname + '/index'));
 });
 
 app.get('/movie', (req, res) =>
 {
-    res.sendFile(path.join(__dirname + '/movie.html'));
-});
-
-app.get('/movie/:movieID', (req, res) =>
-{
-    let movie = getMovie(req.params.movieID);
-    res.send(movie);
+    res.render(path.join(__dirname + '/movie'));
 });
 
 app.get('/person', (req, res) =>
 {
-    res.sendFile(path.join(__dirname + '/person.html'));
+    res.render(path.join(__dirname + '/person'));
 });
 
 app.get('/signin', (req, res) =>
 {
-    res.sendFile(path.join(__dirname + '/signin.html'));
+    res.render(path.join(__dirname + '/signin'));
 });
 
 app.get('/userprofile', (req, res) =>
 {
-    res.sendFile(path.join(__dirname + '/userprofile.html'));
+    res.render(path.join(__dirname + '/userprofile'));
 });
+
+//--------------------------Users--------------------------//
 
 app.get('/users/:username', (req, res) =>
 {
-    let user = getUser(req.params.username);
-    if(typeof user == 'undefined') res.send("User not found!");
-    else res.send(user);
+    res.send(getUser(req.params.username));
+});
+
+app.get('/allUsers', (req, res) =>
+{
+    res.send(users);
 });
 
 app.get('/searchUser/:query', (req, res) =>
 {
-    let users = searchUser(req.params.query);
-    res.send(users);
+    res.send(searchUser(req.params.query));
 });
 
-app.get('/searchMovie/:query', (req, res) =>
+//Will be post
+app.get('/createUser/username=:username&password=:password', (req, res) =>
 {
-    let movies = searchMovie(req.params.query);
-    res.send(movies);
+    res.send(createUser({"Username" : req.params.username, "Password" : req.params.password}));
+});
+
+//Will be post
+app.get('/deleteUser/:username', (req, res) =>
+{
+    res.send(deleteUser(req.params.username));
 });
 
 app.get('/isContributor/:username', (req, res) =>
 {
-    user = getUser(req.params.username);
-    res.send(isContributor(user));
+    res.send(isContributor(getUser(req.params.username)));
 });
 
-app.get('/createUser/:user', (req, res) =>
+//--------------------------Movies--------------------------//
+
+app.get('/movie/:movieID', (req, res) =>
 {
-    res.send(createUser(req.params.user));
+    res.send(getMovie(req.params.movieID));
 });
 
+app.get('/allMovies', (req, res) =>
+{
+    res.send(movies);
+});
+
+app.get('/searchMovie/:query', (req, res) =>
+{
+    res.send(searchMovie(req.params.query));
+});
+
+//Will be post
+app.get('/createMovie/title=:title&imdbID=:imdbID', (req, res) =>
+{
+    res.send(createMovie({"Title" : req.params.title, "imdbID" : req.params.imdbID}));
+});
+
+//Will be post
+app.get('/deleteMovie/:movieID', (req, res) =>
+{
+    res.send(deleteMovie(req.params.movieID));
+});
+
+//Will be post
+app.get('/modifyMovie/:movieID&:prop=:val', (req, res) =>
+{
+    res.send(modifyMovie(req.params.movieID, req.params.prop, req.params.val));
+});
+
+app.get('/getSimilar/:title', (req, res) =>
+{
+    res.send(getSimilar(req.params.title));
+});
+
+app.get('/getRecommended', (req, res) =>
+{
+    res.send(getRecommendations(null));
+});
+
+//--------------------------People--------------------------//
+
+app.get('/people/:name', (req, res) =>
+{
+    res.send(getPerson(req.params.name));
+});
+
+app.get('/allPeople', (req, res) =>
+{
+    res.send(people);
+});
+
+app.get('/searchPeople/:query', (req, res) =>
+{
+    res.send(searchPerson(req.params.query));
+});
+
+//Will be post
+app.get('/createPerson/name=:name', (req, res) =>
+{
+    res.send(createPerson({"Name" : req.params.name}));
+});
+
+//Will be post
+app.get('/deletePerson/:name', (req, res) =>
+{
+    res.send(deletePerson(req.params.name));
+});
+
+//Will be post
+app.get('/modifyPerson/:name&:prop=:val', (req, res) =>
+{
+    res.send(modifyPerson(req.params.name, req.params.prop, req.params.val));
+});
+
+//--------------------------Server Stuff--------------------------//
+
+app.set('view engine', 'ejs');
 init();
 app.listen(port);

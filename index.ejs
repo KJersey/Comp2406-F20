@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Comp 2406 Home
+    </title>
+    <head>
+        <%- include('public/partials/head'); %>
+    </head>
+    <body id="homepage">
+        <header>
+            <%- include('public/partials/header'); %>
+        </header>
+
+        <div class="searchBar">
+            <input id="search" placeholder="Search" onkeydown="search()"></input>
+            <select id="filter">
+                <option value="All">All</option>
+                <option value="Movie">Movie</option>
+                <option value="TV">TV Show</option>
+                <option value="Actor">Actor</option>
+            </select>
+        </div>
+    </body>
+</html>
