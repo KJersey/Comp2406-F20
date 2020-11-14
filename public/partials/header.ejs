@@ -2,8 +2,25 @@
     <button id = "home" type="button" onclick="home()">
         Home
     </button>
-    <span id = "title"> C2MD </span>
-    <button id = "sign-in" type="button" onclick="signinPage()">
-        Sign In
+    <% if(signedin) { %>
+        <button id = "profile-page" type="button" onclick="profilePage()">
+            Profile Page
+        </button>
+    <% } %>
+    <span id="title-bar"> C2MD </span>
+    <% if(contributor) { %>
+        <button id = "create-movie" type="button" onclick="createMoviePage()">
+            Create Movie
+        </button>
+        <button id = "create-person" type="button" onclick="createPersonPage()">
+            Create Person
+        </button>
+    <% } %>
+    <button id = "sign-in" type="button" onclick="signInPage()">
+        <% if(signedin) { %>
+            Sign Out
+        <%} else { %>
+            Sign In
+        <% } %>
     </button>
 </div>

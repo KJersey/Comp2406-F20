@@ -1,232 +1,253 @@
 body {
-    background-color: #555555;
-  
-    margin: 0px;
-    font-family: Arial;
-    padding: 20px;
-    background: #555555;
-  }
-  
-  header {
-    padding: 40px;
-    font-size: 40px;
-    text-align: center;
-    background: white;
-  }
-  
-  div.topBar #title {
-    position: absolute;
-    top: 32px;
-    left: 50%;
-    transform: translate(-50%, 20%);
-  
-    color: #4caf50;
-    font-size: 24pt;
-  }
-  
-  div.topBar button {
-    position: absolute;
-  
-    /*Button*/
-    background-color: #4caf50;
-    border: none;
-    padding: 15px 32px;
-    text-align: center;
-    outline-width: 0;
-  
-    /*Font*/
-    color: white;
-    font-size: 16px;
-  }
-  
-  div.topBar button:hover {
-    background-color: #6bc46e;
-  }
-  
-  div.topBar #home {
-    /*Position*/
-    top: 32px;
-    left: 32px;
-  }
-  
-  div.topBar #sign-in {
-    /*Position*/
-    top: 32px;
-    right: 32px;
-  }
-  
-  /*Home*/
-  
-  #homepage div.searchBar {
-    /*Centre of page*/
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
-  }
-  
-  #homepage div.searchBar #search {
-    /*Size*/
-    width: 600px;
-    height: 30px;
-    outline-width: 0;
-    border: none;
-    padding: 0px;
-    vertical-align: bottom;
-  
-    /*Font*/
-    font-size: 24px;
-  }
-  
-  #homepage div.searchBar #filter {
-    /*Size*/
-    height: 30px;
-    outline-width: 0;
-    border: none;
-    padding: 0px;
-    vertical-align: bottom;
-  
-    /*Font*/
-    font-size: 12px;
-  }
-  
-  #homepage div.searchBar #results *{
-    /*Font*/
-    font-size: 24px;
-  }
+  background-color: #555555;
 
-  /*Sign In*/
-  
-  #signpage div.signdiv {
-    /*Centre of page*/
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    white-space: nowrap;
-  
-    width: -50%;
-  }
-  
-  #signpage div.signdiv label,
-  input {
-    display: inline-block;
-    vertical-align: baseline;
-    width: 150px;
-  }
-  
-  #signpage div.signdiv label {
-    color: #cdcdcd;
-    font-size: 30px;
-  }
-  
-  #signpage div.signdiv input {
-    height: 30px;
-    width: 250px;
-  
-    outline-width: 0px;
-    box-sizing: border-box;
-  }
-  
-  #signpage div.signbuttons {
-    position: absolute;
-    transform: translate(50%, 100%);
-  }
-  
-  #signpage div.signbuttons button {
-    background-color: #4caf50;
-    border: none;
-    padding: 8px 16px;
-    text-align: center;
-    outline-width: 0;
-  
-    /*Font*/
-    color: white;
-    font-size: 16px;
-  }
-  
-  #signpage div.signbuttons button:hover {
-    background-color: #6bc46e;
-  }
-  
-  .pageview div.row
-  {
-    width: 100%;
-  }
-  
-  /* Create two unequal columns that floats next to each other */
-  /* Left column */
-  .pageview div.leftcolumn{
-    float: left;
-    width: 25%;
-  }
-  
-  /* Right column */
-  .pageview div.rightcolumn
-  {
-    float: left;
-    width: 72%;
-    padding-left: 20px;
-  }
-  
-  /*Middle Column*/
-  .pageview div.column{
-    float: left;
-    width: 48%;
-    padding-left: 10px;
-  }
-  
-  /* Profile Picture */
-  #profilepage div.profilepic {
-    width: auto;
-    height: 400px;
-    background-size: 100% 100%;
-    background-image: url("../images/pepeds.gif");
-  }
-  
-  #moviepage div.movieimage {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    right: 50%;
-    width: 50%;
-    height: 400px;
-    background-size: 100% 100%;
-    background-image: url("../images/treasureplanetcard.jpg");
-  }
+  margin: 0px;
+  font-family: Arial;
+  padding: 20px;
+  background: #555555;
+}
 
-  #personpage div.personimage {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    right: 50%;
-    width: auto;
-    height: 400px;
-    background-size: 100% 100%;
-    background-image: url("../images/sheeeeeen.jpg");
-  }
-  
-  /* Add a card effect for articles */
-  .pageview div.card{
-    background-color: white;
-    padding: 10px;
-    margin-top: 20px;
-    height: 100%;
-  }
-  
-  .pageview .bigtext{
-    font-size: xx-large;
-    text-align: center;
-  }
-  
-  .pageview .littletext{
-    font-size: large;
-    text-align: center;
-  }
-  
-  .pageview div.column{
-    float: left;
-    width: 48%;
-    padding-left: 10px;
-  }
+header {
+  padding: 40px;
+  font-size: 40px;
+  text-align: center;
+  background: white;
+}
+
+div.topBar #title-bar {
+  position: absolute;
+  top: 32px;
+  left: 50%;
+  transform: translate(-50%, 20%);
+
+  color: #4caf50;
+  font-size: 24pt;
+}
+
+div.topBar button {
+  position: absolute;
+
+  /*Button*/
+  background-color: #4caf50;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  outline-width: 0;
+
+  /*Font*/
+  color: white;
+  font-size: 16px;
+}
+
+div.topBar button:hover {
+  background-color: #6bc46e;
+}
+
+div.topBar #home {
+  /*Position*/
+  top: 32px;
+  left: 32px;
+}
+div.topBar #profile-page {
+  /*Position*/
+  top: 32px;
+  left: 250px;
+}
+
+div.topBar #sign-in {
+  /*Position*/
+  top: 32px;
+  right: 32px;
+}
+
+div.topBar #create-movie {
+  /*Position*/
+  top: 32px;
+  right: 500px;
+}
+
+div.topBar #create-person{
+  /*Position*/
+  top: 32px;
+  right: 250px;
+}
+
+/*---------------------------Home---------------------------*/
+
+#homepage div.searchBar {
+  /*Centre of page*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+}
+
+#homepage div.searchBar #search {
+  /*Size*/
+  width: 600px;
+  height: 30px;
+  outline-width: 0;
+  border: none;
+  padding: 0px;
+  vertical-align: bottom;
+
+  /*Font*/
+  font-size: 24px;
+}
+
+#homepage div.searchBar #filter {
+  /*Size*/
+  height: 30px;
+  outline-width: 0;
+  border: none;
+  padding: 0px;
+  vertical-align: bottom;
+
+  /*Font*/
+  font-size: 12px;
+}
+
+#homepage div.searchBar #results *{
+  /*Font*/
+  font-size: 24px;
+}
+/*Sign In*/
+
+#signpage div.signdiv {
+  /*Centre of page*/
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  white-space: nowrap;
+
+  width: -50%;
+}
+
+#signpage div.signdiv label,
+input {
+  display: inline-block;
+  vertical-align: baseline;
+  width: 150px;
+}
+
+#signpage div.signdiv label {
+  color: #cdcdcd;
+  font-size: 30px;
+}
+
+#signpage div.signdiv input {
+  height: 30px;
+  width: 250px;
+
+  outline-width: 0px;
+  box-sizing: border-box;
+}
+
+#signpage div.signbuttons {
+  position: absolute;
+  transform: translate(50%, 100%);
+}
+
+#signpage div.signbuttons button {
+  background-color: #4caf50;
+  border: none;
+  padding: 8px 16px;
+  text-align: center;
+  outline-width: 0;
+
+  /*Font*/
+  color: white;
+  font-size: 16px;
+}
+
+#signpage div.signbuttons button:hover {
+  background-color: #6bc46e;
+}
+
+.pageview div.row
+{
+  width: 100%;
+}
+
+/* Create two unequal columns that floats next to each other */
+/* Left column */
+.pageview div.leftcolumn{
+  float: left;
+  width: 25%;
+}
+
+/* Right column */
+.pageview div.rightcolumn
+{
+  float: left;
+  width: 72%;
+  padding-left: 20px;
+}
+
+/*Middle Column*/
+.pageview div.column{
+  float: left;
+  width: 48%;
+  padding-left: 10px;
+}
+
+/* Profile Picture */
+#profilepage div.profilepic {
+  width: auto;
+  height: 400px;
+  background-size: 100% 100%;
+  background-image: url("../images/pepeds.gif");
+}
+
+#moviepage div.movieimage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  right: 50%;
+  width: 50%;
+  height: 400px;
+  background-size: 100% 100%;
+}
+
+#personpage div.personimage {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  right: 50%;
+  width: auto;
+  height: 400px;
+  background-size: 100% 100%;
+  background-image: url("../images/sheeeeeen.jpg");
+}
+
+/* Add a card effect for articles */
+.pageview div.card{
+  background-color: white;
+  padding: 10px;
+  margin-top: 20px;
+  height: 100%;
+}
+
+.pageview .bigtext{
+  font-size: xx-large;
+  text-align: center;
+}
+
+.pageview .littletext{
+  font-size: large;
+  text-align: center;
+}
+
+.pageview div.column{
+  float: left;
+  width: 48%;
+  padding-left: 10px;
+}
+
+#not-found{
+  text-align: center;
+  color: #6bc46e;
+  font-size: 250px;
+}

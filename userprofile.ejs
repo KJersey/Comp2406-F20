@@ -14,7 +14,7 @@
         <div class="leftcolumn">
             <div class="card">
                 <div class="profilepic"></div>
-                <p class="bigtext">John Doe</p>
+                <p class="bigtext"> <%= username %> </p>
                 <p class="littletext">6 Followers, Following 24</p>
             </div>
             <div class="card">
@@ -26,22 +26,25 @@
             <div class="column">
                 <div class="card">
                     <p style="font-size: larger; text-align: center;">Movies Recently Watched</p>
-                    <img src="images/treasureplanetcard.jpg" alt="treasureplanet" onclick="movie()">
-                    <img src="images/titaniccard.jpg" alt="titanic" onclick="movie()">
-                    <img src="images/warcraftcard.jpg" alt="warcraft" onclick="movie()">
-                    <img src="images/atlantiscard.jpg" alt="atlantis" onclick="movie()">
-                    <img src="images/legomoviecard.jpg" alt="legomovie" onclick="movie()">
+                    <% for(i in movies) { %>
+                        <img src="<%= movies[i].Poster %>" alt="treasureplanet" onclick="movie('<%= movies[i].imdbID %>')">
+                    <% } %>
                 </div>
             </div>
             <div class="column">
                 <div class="card">
                     <p style="font-size: larger; text-align: center;">Reviews</p>
-                    <img src="./Images/legomoviecard.jpg" alt="legomovie" style="float:left" onclick="movie()">
-                    <p>Example of true art, a wonderful masterpiece that has stood the test of time. Everything really is awesome <br><br><br><br><br><br><br><br><br><br><br><br><br><br></p>
-                    <img src="images/star.png" alt="" style="mix-blend-mode: multiply; height: 40px; width: auto;">
-                    <img src="images/star.png" alt="" style="mix-blend-mode: multiply; height: 40px; width: auto;">
-                    <img src="images/star.png" alt="" style="mix-blend-mode: multiply; height: 40px; width: auto;">
-                    <img src="images/star.png" alt="" style="mix-blend-mode: multiply; height: 40px; width: auto;">
+                    <% for(let i in reviews) { %>
+                        <% if(reviews[i].Poster === 'N/A') { %>
+                            <img src= "../images/unknown-icon.png" onclick="movie('<%= reviews[i].imdbID %>')">
+                        <% } else { %>
+                            <img src= "<%=reviews[i].Poster%>" onclick="movie('<%= reviews[i].imdbID %>')">
+                        <% } %>
+                        <% for(let j = 0; j < reviews[i].Score; j++) { %>
+                            <img src="../images/star.png" alt="" style="mix-blend-mode: multiply; height: 40px; width: auto;">
+                        <% } %>
+                        <br>
+                    <% } %>
                     
                 </div>
             </div>

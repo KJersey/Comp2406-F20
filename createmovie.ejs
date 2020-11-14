@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Add New Movie
+    </title>
+    <head>
+        <%- include('public/partials/head'); %>
+    </head>
+    <body id="signpage">
+        <header>
+            <%- include('public/partials/header'); %>
+        </header>
+
+        <div class="signdiv">
+            <label for="title">Title: </label><input id="title"></input> <br>
+            <label for="imdbID">ID: </label><input id="imdbID"></input> <br>
+            <label for="year">Year: </label><input id="year"></input> <br>
+            <label for="rated">Rated: </label><input id="rated"></input> <br>
+            <label for="genre">Genre: </label><input id="genre"></input> <br>
+            <label for="actors">Actors: </label><input id="actors"></input> <br>
+            <label for="plot">Plot: </label><input id="plot"></input> <br>
+            <div class="signbuttons">
+                <button id="submit" onclick="createMovie()">Submit</button>
+            </div>
+        </div>
+    </body>
+</html>

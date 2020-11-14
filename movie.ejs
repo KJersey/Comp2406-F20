@@ -14,15 +14,21 @@
         <div class="row">
             <div class="leftcolumn">
                 <div class="card">
-                    <div class="movieimage"></div>
-                    <p class="bigtext">Treasure Planet</p>
-                    <p class="littletext">November 27, 2002</p>
-                    <p class="littletext">Genre: Animation/Adventure</p>
+                    <% if(movie.Poster === 'N/A') { %>
+                        <div class="movieimage" background-image style = "background-image: url('../images/unknown-icon.png');"></div>
+                    <% } else { %>
+                        <div class="movieimage" background-image style = "background-image: url(' <%= movie.Poster %>');"></div>
+                    <% } %>
+                    
+                    <p class="bigtext"><%= movie.Title %></p>
+                    <p class="littletext">Rated <%= movie.Rated %></p>
+                    <p class="littletext"><%= movie.Released %></p>
+                    <p class="littletext">Genre: <%= movie.Genre %></p>
                     <p class="littletext">Average review: 5/7</p>
                 </div>
                 <div class="card">
                     <p class="bigtext">Plot</p>
-                    <p class="littletext">Movie Stuff</p>
+                    <p class="littletext"> <%= movie.Plot %> </p>
                 </div>
                 <div class="card">
                     <p class="bigtext">You may also like</p>
@@ -33,7 +39,11 @@
                 <div class="column">
                     <div class="card">
                         <p class="littletext">Actors/Actresses</p>
-                        <p class="littletext"><a href="person">Jim Hawkins</a></p>
+                        <% let actors = movie.Actors.split(", ")%>
+                        <% for(let i in actors) {%>
+                            <p class="littletext"><a href="/person/<%= actors[i] %>"><%= actors[i] %></a></p>
+                        <% } %>
+                        
                     </div>
                 </div>
                 <div class="column">

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Add New Movie
+    </title>
+    <head>
+        <%- include('public/partials/head'); %>
+    </head>
+    <body id="signpage">
+        <header>
+            <%- include('public/partials/header'); %>
+        </header>
+
+        <div class="signdiv">
+            <label for="name">Name: </label><input id="name"></input> <br>
+            <label for="directed">Directed: </label><input id="directed"></input> <br>
+            <label for="wrote">Wrote: </label><input id="wrote"></input> <br>
+            <div class="signbuttons">
+                <button id="submit" onclick="createPerson()">Submit</button>
+            </div>
+        </div>
+    </body>
+</html>
