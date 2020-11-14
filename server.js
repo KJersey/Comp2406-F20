@@ -10,17 +10,18 @@ const { isContext } = require('vm');
 const userMethods = require('./user.js')
 const personMethods = require('./person.js')
 const movieMethods = require('./movie.js')
-const port = 8000;
+const port = 3000;
 
-let movies = require(__dirname + '/public/json/movie-data-short.json');
+let movies = movieMethods.movies;
 let people = personMethods.people;
-let users = require(__dirname + '/public/json/users.json');
+let users = userMethods.users;
 
 function init()
 {
     console.log("Starting Up");
-    // console.log(movies);
 
+    //Old code for created people from movie data.
+    /*
     for(movie in movies)
     {
         imdbID = movies[movie].imdbID;
@@ -76,7 +77,7 @@ function init()
                 if(!people[i]["Acted"].some (e => e === imdbID)) people[i].Acted.push(imdbID);
             }
         }
-    }
+    }*/
 
     console.log("Finished Starting");
 }
@@ -91,7 +92,6 @@ router.get('/', (req, res, next) =>
         signedin: userMethods.methods.isSignedIn(req),
         contributor: userMethods.methods.isContributor(user)
     });
-    next();
 });
 
 router.get('/movie/:movieID', (req, res, next) =>
@@ -112,7 +112,8 @@ router.get('/movie/:movieID', (req, res, next) =>
     {
         signedin: userMethods.methods.isSignedIn(req),
         contributor: userMethods.methods.isContributor(user),
-        movie: m
+        movie: m,
+        similar: movieMethods.methods.getSimilar(null)
     });
 });
 
@@ -140,11 +141,41 @@ router.get('/person/:person', (req, res, next) =>
 {
     let user = userMethods.methods.getUser(req.session.Username);
     let person = personMethods.methods.getPerson(req.params.person);
+
+    if(!person)
+    {
+        res.render(path.join(__dirname + '/404'),
+        {
+            signedin: userMethods.methods.isSignedIn(req),
+            contributor: userMethods.methods.isContributor(user)
+        });
+        return;
+    }
+
+    let m = [];
+    for(let i in person.Acted)
+    {
+        m.push(movieMethods.methods.getMovie(person.Acted[i]));
+    }
+    
+    for(let i in person.Wrote)
+    {
+        m.push(movieMethods.methods.getMovie(person.Wrote[i]));
+    }
+
+    for(let i in person.Directed)
+    {
+        m.push(movieMethods.methods.getMovie(person.Directed[i]));
+    }
+
+    m = Array.from(new Set(m));
+
     res.render(path.join(__dirname + '/person'),
     {
         signedin: userMethods.methods.isSignedIn(req),
         contributor: userMethods.methods.isContributor(user),
-        name: person.Name
+        name: person.Name,
+        movies: m
     });
 });
 
@@ -216,7 +247,7 @@ router.get('/userprofile/:user', (req, res, next) =>
     }
 
     let m = [];
-    for(let i = 0; i < 5; ++i)
+    for(let i = 0; i < 4; ++i)
     {
         m.push(movieMethods.methods.getSimilar(null));
     }
@@ -225,7 +256,7 @@ router.get('/userprofile/:user', (req, res, next) =>
     {
         signedin: userMethods.methods.isSignedIn(req),
         contributor: userMethods.methods.isContributor(user),
-        username: userMethods.methods.getUser(req.session.Username).Username,
+        username: userMethods.methods.getUser(req.params.user).Username,
         reviews: r,
         movies: m
     });
@@ -274,7 +305,7 @@ router.get('/allUsers', (req, res, next) =>
 
 router.get('/searchUser/:query', (req, res, next) =>
 {
-    res.send(user.searchUser(req.params.query));
+    res.send(userMethods.methods.searchUser(req.params.query));
 });
 
 //Will be post
@@ -379,9 +410,9 @@ router.post('/createPerson', (req, res, next) =>
     }
 
     let body = req.body;
-    
+
     if (personMethods.methods.createPerson(body)) {
-        res.redirect('/person/' + body.name);
+        res.redirect('/person/' + body.Name);
     }
 });
 

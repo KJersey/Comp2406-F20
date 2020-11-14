@@ -1,6 +1,6 @@
 //---------------------------------------MOVIE---------------------------------------
 
-let movies = require(__dirname + '/public/json/movie-data-short.json');
+let movies = require(__dirname + '/public/json/movie-data.json');
 
 let methods = 
 {
@@ -30,7 +30,6 @@ let methods =
 
     createMovie: function (newMovie)
     {
-        console.log(newMovie);
         if(!methods.isValidMovie(newMovie)) return null;
         if(methods.getMovie(newMovie.imdbID)) return null;
 

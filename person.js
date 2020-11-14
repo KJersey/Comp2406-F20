@@ -1,6 +1,6 @@
 //---------------------------------------PERSON---------------------------------------
 
-let people = [];
+let people = require(__dirname + '/public/json/people.json');
 
 let methods = 
 {
@@ -30,9 +30,8 @@ let methods =
 
     createPerson: function (newPerson)
     {
-        console.log(newPerson);
-        if(!isValidPerson(newPerson)) return null;
-        if(getPerson(newPerson.imdbID)) return null;
+        if(!methods.isValidPerson(newPerson)) return null;
+        if(methods.getPerson(newPerson.name)) return null;
 
         people.push(newPerson);
 

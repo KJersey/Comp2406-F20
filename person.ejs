@@ -21,17 +21,16 @@
             <div class="rightcolumn">
                 <div class="column">
                     <div class="card">
-                        <p class="bigtext">Bio</p>
-                        <p class="littletext">Charlie Sheen was born Carlos Irwin Estévez on September 3, 1965, in New York City.</p>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="card">
                         <p class="bigtext">Filmography</p>
-                        <p class="littletext"><a href="movie">Two and a half men</a></p>
+                        <p class="littletext">
+                            <% if(movies[0]) { %>
+                                <% for(let i in movies) { %>
+                                    <a href="<%="/movie/" + movies[i].imdbID %>"> <%= movies[i].Title %> </a> <br>
+                            <% } } %>
+                        </p>
                     </div>
                 </div>
             </div>
         </div>
     </body>
-</html>
+</html>=

@@ -27,7 +27,7 @@
                 <div class="card">
                     <p style="font-size: larger; text-align: center;">Movies Recently Watched</p>
                     <% for(i in movies) { %>
-                        <img src="<%= movies[i].Poster %>" alt="treasureplanet" onclick="movie('<%= movies[i].imdbID %>')">
+                        <img src="<%= movies[i].Poster %>" onclick="movie('<%= movies[i].imdbID %>')">
                     <% } %>
                 </div>
             </div>

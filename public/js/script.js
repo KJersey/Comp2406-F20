@@ -91,14 +91,12 @@ function search(ele)
     ele = ele || window.event;
     if(ele.keyCode == 13)
     {
-        document.location.href = "movie/tt0114709";
+        let search = document.getElementById("search").value;
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", 'searchMovie/' + search, false ); // false for synchronous request
+        xmlHttp.send(null);
+        document.location.href = "movie/" + JSON.parse(xmlHttp.responseText)[0].imdbID;
     }
-}
-
-function movie(title)
-{
-    console.log(title)
-    //document.location.href = "movie";
 }
 
 function createMovie()
@@ -133,7 +131,6 @@ function person()
 
 function movie(title)
 {
-    console.log(title)
     document.location.href = "/movie/" + title;
 }
 
@@ -142,11 +139,10 @@ function createPerson()
     let name = document.getElementById("name").value;
     let directed = document.getElementById("directed").value.split(", ");
     let wrote = document.getElementById("wrote").value.split(", ");
+    let acted = document.getElementById("acted").value.split(", ");
 
     // create basic movie object
-    let person = {Name: name, Directed: directed, Wrote: wrote};
-
-    console.log(person);
+    let person = {Name: name, Acted: acted, Directed: directed, Wrote: wrote};
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", '/createperson', true);
