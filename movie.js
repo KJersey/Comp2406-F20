@@ -31,27 +31,27 @@ let methods =
 
     searchMovieByRated: function (query)
     {
-        return moviesDB.filterArray(movie => movie.Rated == query);
+        return moviesDB.filterArray(movie => movie.RatedtoLowerCase() == query.toLowerCase());
     },
 
     searchMovieByGenre: function (query)
     {
-        return moviesDB.filterArray(movie => movie.Genre.includes(query));
+        return moviesDB.filterArray(movie => movie.Genre.toLowerCase().includes(query.toLowerCase()));
     },
 
     searchMovieByDirector: function (query)
     {
-        return moviesDB.filterArray(movie => movie.Director.includes(query));
+        return moviesDB.filterArray(movie => movie.Director.toLowerCase().includes(query.toLowerCase()));
     },
 
     searchMovieByWriter: function (query)
     {
-        return moviesDB.filterArray(movie => movie.Writer.includes(query));
+        return moviesDB.filterArray(movie => movie.Writer.toLowerCase().includes(query.toLowerCase()));
     },
 
     searchMovieByActor: function (query)
     {
-        return moviesDB.filterArray(movie => movie.Actors.includes(query));
+        return moviesDB.filterArray(movie => movie.Actors.toLowerCase().includes(query.toLowerCase()));
     },
 
     searchMovieByPerson: function (query)
@@ -123,6 +123,12 @@ let methods =
         
         return similar;
     },
+
+    getMovieFromIMDB: function (URL) {
+        let URL = "http://www.imdb.com/title/tt0058331/";
+        String[] lines = loadStrings(url);
+        String html = join(lines, ""); 
+    }
 };
 
 exports.moviesDB = moviesDB;

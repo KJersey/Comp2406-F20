@@ -510,7 +510,7 @@ router.get('/allPeople', (req, res, next) =>
     res.send(people);
 });
 
-router.get('/searchPeople/:query', (req, res, next) =>
+router.get('/searchPerson/:query', (req, res, next) =>
 {
     res.send(personMethods.methods.searchPerson(req.params.query));
 });

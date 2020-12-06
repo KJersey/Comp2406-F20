@@ -91,12 +91,39 @@ function createReviewPage(imdbID)
     document.location.href = "/createReview/" + imdbID;
 }
 
+function renderMovies(movies)
+{
+    let results = "";
+    let max = 10;
+    if(movies.length < max) max = movies.length;
+    for(let i = 0; i < max; i++)
+    {
+        results = results + "<a href=\"/movie/" + movies[i].imdbID + "\">" + movies[i].Title + "<\a><br>";
+    }
+
+    document.getElementById("searchResult").innerHTML = results;
+}
+
+function renderPeople(people)
+{
+    let results = "";
+    let max = 10;
+    if(people.length < max) max = people.length;
+    for(let i = 0; i < max; i++)
+    {
+        results = results + "<a href=\"/person/" + people[i].Name + "\">" + people[i].Name + "<\a><br>";
+    }
+
+    document.getElementById("searchResult").innerHTML = results;
+}
+
 function search(ele)
 {
     ele = ele || window.event;
     if(ele.keyCode == 13)
     {
         let search = document.getElementById("search").value;
+        if(!search) return;
 
         var xmlHttp = new XMLHttpRequest();
 
@@ -104,17 +131,20 @@ function search(ele)
         {
         case "Title":
             xmlHttp.open( "GET", 'searchMovie/' + search, false );
-            break;
-        case "Person":
-            xmlHttp.open( "GET", 'searchMovieByPerson/' + search, false );
+            xmlHttp.send(null);
+            renderMovies(JSON.parse(xmlHttp.responseText));
             break;
         case "Genre":
             xmlHttp.open( "GET", 'searchMovieByGenre/' + search, false );
+            xmlHttp.send(null);
+            renderMovies(JSON.parse(xmlHttp.responseText));
+            break;
+        case "Person":
+            xmlHttp.open( "GET", 'searchPerson/' + search, false );
+            xmlHttp.send(null);
+            renderPeople(JSON.parse(xmlHttp.responseText));
             break;
         }
-        
-        xmlHttp.send(null);
-        console.log(JSON.parse(xmlHttp.responseText));
     }
 }
 
