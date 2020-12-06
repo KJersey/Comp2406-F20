@@ -1,6 +1,8 @@
 //---------------------------------------MOVIE---------------------------------------
 
-let movies = require(__dirname + '/public/json/movie-data.json');
+const Enmap = require("enmap");
+
+let moviesDB = new Enmap({name: "movies"});
 
 let methods = 
 {
@@ -19,13 +21,37 @@ let methods =
 
     getMovie: function (movieID)
     {
-        return movies.find(movie => movie.imdbID === movieID);
+        return moviesDB.fetch(movieID);
     },
 
     searchMovie: function (query)
     {
-        // if query = "dragon", returns array of all users which contain dragon in their username
-        return movies.filter(movie => movie.Title.toLowerCase().includes(query.toLowerCase()));
+        return moviesDB.filterArray(movie => movie.Title.toLowerCase().includes(query.toLowerCase()));
+    },
+
+    searchMovieByRated: function (query)
+    {
+        return moviesDB.filterArray(movie => movie.Rated == query);
+    },
+
+    searchMovieByGenre: function (query)
+    {
+        return moviesDB.filterArray(movie => movie.Genre.includes(query));
+    },
+
+    searchMovieByDirector: function (query)
+    {
+        return moviesDB.filterArray(movie => movie.Director.includes(query));
+    },
+
+    searchMovieByWriter: function (query)
+    {
+        return moviesDB.filterArray(movie => movie.Writer.includes(query));
+    },
+
+    searchMovieByActor: function (query)
+    {
+        return moviesDB.filterArray(movie => movie.Actors.includes(query));
     },
 
     createMovie: function (newMovie)
@@ -33,22 +59,20 @@ let methods =
         if(!methods.isValidMovie(newMovie)) return null;
         if(methods.getMovie(newMovie.imdbID)) return null;
 
-        for (prop in movies[0]) {
+        for (prop in moviesDB[0]) {
             if(!newMovie[prop]) {
                 newMovie[prop] = 'N/A';
             }
         }
 
-        movies.push(newMovie);
+        moviesDB.set(newMovie.imdbID, newMovie);
 
         return newMovie;
     },
 
     deleteMovie: function (movieID)
     {
-        let movie = methods.getMovie(movieID);
-        movies = movies.filter(m => m !== movie);
-        return movies;
+        moviesDB.remove(movieID);
     },
 
     modifyMovie: function (movieID, prop, val)
@@ -57,29 +81,41 @@ let methods =
         if(!movie) return null;
 
         if(prop != "imdbID" && movie.hasOwnProperty(prop)) {
-            movie[prop] = val;
+            moviesDB.set(movieID, val, prop);
         }
 
-        return movie;
+        return methods.getMovie(movieID);
     },
 
-    getSimilar: function (title)
+    getSimilar: function (imdbID)
     {
-        return movies[Math.floor(Math.random() * movies.length)];
-    },
+        let movie = methods.getMovie(imdbID);
+        let genres = movie.Genre.split(", ");
+        let rated = movie.Rated;
 
-    getRecommendations: function (username)
-    {
-        let recommended = [];
+        let similarList = [];
         
-        for(let i = 0; i < 5; i++) {
-            let movie = methods.getSimilar(null);
-            if(!recommended.includes(movie)) recommended.push(movie);
+        for(let i in genres)
+        {
+            similarList = similarList.concat(methods.searchMovieByGenre(genres[i]));
         }
 
-        return recommended;
-    }
+        similarList = similarList.filter(movie => movie.Rated === rated);
+
+        if(similarList.length <= 1)
+        {
+            return moviesDB.random(1)[0];
+        }
+
+        let similar = movie;
+        while(similar.Title === movie.Title)
+        {
+            similar = similarList[Math.floor(Math.random() * similarList.length)];
+        }
+        
+        return similar;
+    },
 };
 
-exports.movies = movies;
+exports.moviesDB = moviesDB;
 exports.methods = methods;

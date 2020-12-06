@@ -201,6 +201,21 @@ input {
   background-image: url("../images/pepeds.gif");
 }
 
+#moviepage #createReview {
+  transform: translateX(150%);
+
+  /*Button*/
+  background-color: #4caf50;
+  border: none;
+  padding: 15px 32px;
+  text-align: center;
+  outline-width: 0;
+
+  /*Font*/
+  color: white;
+  font-size: 16px;
+}
+
 #moviepage div.movieimage {
   display: block;
   margin-left: auto;

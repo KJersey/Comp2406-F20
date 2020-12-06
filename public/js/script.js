@@ -86,17 +86,75 @@ function home()
     document.location.href = "/";
 }
 
+function createReviewPage(imdbID)
+{
+    document.location.href = "/createReview/" + imdbID;
+}
+
 function search(ele)
 {
     ele = ele || window.event;
     if(ele.keyCode == 13)
     {
         let search = document.getElementById("search").value;
+
+        switch(document.getElementById("filter").value)
+        {
+        case "All":
+            break;
+        case "Title":
+            break;
+        case "Person":
+            break;
+        case "Genre":
+            break;
+        }
+
+        return;
         var xmlHttp = new XMLHttpRequest();
         xmlHttp.open( "GET", 'searchMovie/' + search, false ); // false for synchronous request
         xmlHttp.send(null);
         document.location.href = "movie/" + JSON.parse(xmlHttp.responseText)[0].imdbID;
     }
+}
+
+function updateContributor()
+{
+    let contributor = {val: document.getElementById("contributor").checked}
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/updateContributor', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(JSON.stringify(contributor));
+
+    location.reload();
+}
+
+function updateUserFollowage(user)
+{
+    let followage = {val: document.getElementById("userFollowage").checked, user: user}
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/updateUserFollowage', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(JSON.stringify(followage));
+
+    location.reload();
+}
+
+function updatePersonFollowage(person)
+{
+    let followage = {val: document.getElementById("personFollowage").checked, person: person}
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", '/updatePersonFollowage', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+
+    xhr.send(JSON.stringify(followage));
+
+    location.reload();
 }
 
 function createMovie()
@@ -149,6 +207,32 @@ function createPerson()
     xhr.setRequestHeader('Content-Type', 'application/json');
 
     xhr.send(JSON.stringify(person));
+
+    xhr.onload = () =>
+    {
+        document.location.href = xhr.responseURL;
+    }
+}
+
+function createReview(imdbID)
+{
+    var xhr = new XMLHttpRequest();
+
+    let summary = document.getElementById("summary").value;
+    let description = document.getElementById("description").value;
+    let score = document.getElementById("score").value;
+
+    xhr.open("GET", '/getMovie/' + imdbID, false);
+    xhr.send(null);
+    response = JSON.parse(xhr.responseText);
+
+    if(response === undefined) return;
+
+    let review = {imdbID: response.imdbID, summary: summary, description: description, score: score};
+
+    xhr.open("POST", '/createreview', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.send(JSON.stringify(review));
 
     xhr.onload = () =>
     {

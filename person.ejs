@@ -16,6 +16,14 @@
                 <div class="card">
                     <div class="personimage"></div>
                     <p class="bigtext"><%= name %></p>
+                    <% if(signedin) { %>
+                        <p class="littletext">
+                            Follow
+                        </p>
+                        <p class="littletext">
+                            <input type="checkbox" id="personFollowage" <% if(isFollowing) { %> checked="checked" <% } %> onclick="updatePersonFollowage('<%= name %>')">
+                        </p>
+                    <% } %>
                 </div>
             </div>
             <div class="rightcolumn">
@@ -30,7 +38,18 @@
                         </p>
                     </div>
                 </div>
+                <div class="column">
+                    <div class="card">
+                        <p class="bigtext">Frequent Collaborators</p>
+                        <p class="littletext">
+                            <% if(collaborators[0]) { %>
+                                <% for(let i in collaborators) { %>
+                                    <a href="<%="/person/" + collaborators[i][0] %>"> <%= collaborators[i][0] %> </a> <br>
+                            <% } } %>
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
-</html>=
+</html>

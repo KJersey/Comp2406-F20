@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <title>
+        Add New Movie
+    </title>
+    <head>
+        <%- include('public/partials/head'); %>
+    </head>
+    <body id="signpage">
+        <header>
+            <%- include('public/partials/header'); %>
+        </header>
+
+        <div class="signdiv">
+            <label for="summary">Summary: </label><input id="summary"></input> <br>
+            <label for="description">Description: </label><input id="description"></input> <br>
+            <label for="score">Score: </label><input type="number" id="score" value=5 min=0 max=10></input> <br>
+            <div class="signbuttons">
+                <button id="submit" onclick="createReview('<%= imdbID %>')">Submit</button>
+            </div>
+        </div>
+    </body>
+</html>

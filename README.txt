@@ -12,9 +12,11 @@ Username:   student
 Password:   JerMal2406
 
 INSTALL AND RUN INSTRUCTIONS
-cd --ProjectFolderPath
-npm install
+cd MovieDatabase
 node server.js
+
+IF SERVER BREAKS, RUN THIS SCRIPT IN HOME
+./reset.sh
 
 - you are able to search for movies with the search bar found on the home page of the website, and
   if no movie matches exactly, will return whatever is first in the list of possible movies

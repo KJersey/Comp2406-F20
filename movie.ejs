@@ -24,33 +24,72 @@
                     <p class="littletext">Rated <%= movie.Rated %></p>
                     <p class="littletext"><%= movie.Released %></p>
                     <p class="littletext">Genre: <%= movie.Genre %></p>
-                    <p class="littletext">Average review: 5/7</p>
-                </div>
-                <div class="card">
-                    <p class="bigtext">Plot</p>
-                    <p class="littletext"> <%= movie.Plot %> </p>
+                    <% let totalScore = 0 %>
+                    <% let numReviews = 0 %>
+                    <% for(let i in ratings) { %>
+                        <% totalScore += +ratings[i].score; %>
+                        <% numReviews++ %>
+                    <% } %>
+                    <% for(let i in reviews) { %>
+                        <% totalScore += +reviews[i].score; %>
+                        <% numReviews++ %>
+                    <% } %>
+                    <p class="littletext">
+                        Average review:
+                        <% if(numReviews !== 0) { %> 
+                            <%= Math.round(totalScore / numReviews * 10) / 10 %> / 10
+                        <% } else { %>
+                            No reviews
+                        <%} %>
+                    </p>
                 </div>
                 <div class="card">
                     <p class="bigtext">You may also like</p>
-                    <img src= "<%= similar.Poster%>" onclick="movie('<%= similar.imdbID %>')">
+                    <img src="<%= similar.Poster%>" onclick="movie('<%= similar.imdbID %>')">
                 </div>
             </div>
             <div class="rightcolumn">
                 <div class="column">
+                    <div class="card">
+                        <p class="bigtext">Plot</p>
+                        <p class="littletext"> <%= movie.Plot %> </p>
+                    </div>
                     <div class="card">
                         <p class="littletext">Actors/Actresses</p>
                         <% let actors = movie.Actors.split(", ")%>
                         <% for(let i in actors) {%>
                             <p class="littletext"><a href="/person/<%= actors[i] %>"><%= actors[i] %></a></p>
                         <% } %>
-                        
                     </div>
                 </div>
                 <div class="column">
                     <div class="card">
-                        <p class="littletext">Reviews</p>
-                        <p class="littletext">5/7 Perfect movie - TPlanet Lover</p>
+                        <p class="bigtext">Reviews</p>
+                        <% if(signedin) { %>
+                            <button id="createReview" onclick="createReviewPage('<%=movie.imdbID %>')">
+                                Create Review
+                            </button>
+                        <% } %>
                     </div>
+                    <% for(let i in reviews) { %>
+                        <div class="card">
+                            <p class="littletext">
+                                <a href="/userProfile/<%= reviews[i].user %>"> <%= reviews[i].user %></a> : <%= reviews[i].score %> / 10
+                            </p>
+                            <% if(reviews[i].summary !== '') { %>
+                                <p class="littletext">
+                                    Summary:
+                                    <%= reviews[i].summary %>
+                                </p>
+                            <% } %>
+                            <% if(reviews[i].description !== '') { %>
+                                <p class="littletext">
+                                    Description:
+                                    <%= reviews[i].description %>
+                                </p>
+                            <% } %>
+                            </div>
+                    <% } %> 
                 </div>
             </div>
         </div>

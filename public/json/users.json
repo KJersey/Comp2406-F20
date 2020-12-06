@@ -1,5 +1,5 @@
 [
-    {"Username" : "Jersey", "Password":"shore", "Contributor": true, "Reviews" : [{"imdbID" : "tt0113189", "Score" : 5}, {"imdbID" : "tt0114576", "Score" : 4}]},
-    {"Username" : "Malcolm", "Password": "Password1", "Contributor": true, "Reviews" : [{"imdbID" : "tt0114319", "Score" : 4}]},
+    {"Username" : "Jersey", "Password":"shore", "Contributor": true, "Reviews" : [{"imdbID" : "tt0113189", "Score" : 10}, {"imdbID" : "tt0114576", "Score" : 8}]},
+    {"Username" : "Malcolm", "Password": "Password1", "Contributor": true, "Reviews" : [{"imdbID" : "tt0114319", "Score" : 8}]},
     {"Username" : "Dave", "Password" : "frodo", "Contributor": false, "Reviews": []}
 ]

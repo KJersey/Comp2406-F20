@@ -14,18 +14,54 @@
         <div class="leftcolumn">
             <div class="card">
                 <div class="profilepic"></div>
-                <p class="bigtext"> <%= username %> </p>
-                <p class="littletext">6 Followers, Following 24</p>
+                <p class="bigtext">
+                    <%= user.Username %>
+                </p>
+                <% if(isOwnProfile && signedin) { %>
+                    <p class="littletext">
+                        Contributor
+                    </p>
+                    <p class="littletext">
+                        <input type="checkbox" id="contributor" <% if(contributor) { %> checked="checked" <% } %> onclick="updateContributor()">
+                    </p>
+                <% } else if(signedin) { %>
+                    <p class="littletext">
+                        Follow
+                    </p>
+                    <p class="littletext">
+                        <input type="checkbox" id="userFollowage" <% if(isFollowing) { %> checked="checked" <% } %> onclick="updateUserFollowage('<%= user.Username %>')">
+                    </p>
+                <% } %>
             </div>
             <div class="card">
-                <p>Joined at date: September 16th 2020</p>
-                <p></p>
+                <p class="littletext">
+                    <%= followers %> Followers, Following <%= followingUsers.length %> Users
+                </p>
+                <% for(i in followingUsers) { %>
+                    <a href="/userProfile/<%= followingUsers[i] %>">
+                        <p class="littletext">
+                            <%= followingUsers[i] %>
+                        </p>
+                    </a>
+                <% } %>
+            </div>
+            <div class="card">
+                <p class="littletext">
+                    Following <%= followingPeople.length %> People
+                </p>
+                <% for(i in followingPeople) { %>
+                    <a href="/person/<%= followingPeople[i] %>">
+                        <p class="littletext">
+                            <%= followingPeople[i] %>
+                        </p>
+                    </a>
+                <% } %>
             </div>
         </div>
         <div class="rightcolumn">
             <div class="column">
                 <div class="card">
-                    <p style="font-size: larger; text-align: center;">Movies Recently Watched</p>
+                    <p class="bigtext">Recommended Movies</p>
                     <% for(i in movies) { %>
                         <img src="<%= movies[i].Poster %>" onclick="movie('<%= movies[i].imdbID %>')">
                     <% } %>
@@ -33,20 +69,43 @@
             </div>
             <div class="column">
                 <div class="card">
-                    <p style="font-size: larger; text-align: center;">Reviews</p>
-                    <% for(let i in reviews) { %>
-                        <% if(reviews[i].Poster === 'N/A') { %>
-                            <img src= "../images/unknown-icon.png" onclick="movie('<%= reviews[i].imdbID %>')">
-                        <% } else { %>
-                            <img src= "<%=reviews[i].Poster%>" onclick="movie('<%= reviews[i].imdbID %>')">
-                        <% } %>
-                        <% for(let j = 0; j < reviews[i].Score; j++) { %>
-                            <img src="../images/star.png" alt="" style="mix-blend-mode: multiply; height: 40px; width: auto;">
-                        <% } %>
-                        <br>
-                    <% } %>
-                    
+                    <p class="bigtext">Reviews</p>
                 </div>
+                <% for(let i in reviews) { %>
+                    <div class="card">
+                        <p class="bigtext">
+                            <%= reviews[i].title %>
+                        </p>
+                        <% if(reviews[i].summary !== '') { %>
+                            <p class="littletext">
+                                Summary:
+                                <%= reviews[i].summary %>
+                            </p>
+                        <% } %>
+                        <% if(reviews[i].description !== '') { %>
+                            <p class="littletext">
+                                Description:
+                                <%= reviews[i].description %>
+                            </p>
+                        <% } %>
+                        <div style="display: block; margin-left: auto; margin-right: auto; width: 50%;">
+                            <% if(reviews[i].poster === 'N/A') { %>
+                                <img src= "../images/unknown-icon.png" onclick="movie('<%= reviews[i].imdbID %>')">
+                            <% } else { %>
+                                <img src= "<%=reviews[i].poster%>" onclick="movie('<%= reviews[i].imdbID %>')">
+                            <% } %>
+                            <br>
+                            <% let j = 0 %>
+                            <% for(; j < reviews[i].score; j++) { %>
+                                <img src="../images/star.png" alt="" style="mix-blend-mode: multiply; height: 50px; width: auto;">
+                            <% } %>
+                            <% for(; j < 10; j++) { %>
+                                <img src="../images/grey-star.png" alt="" style="mix-blend-mode: multiply; height: 50px; width: auto;">
+                                <% } %>
+                            <br>
+                        </div>
+                    </div>
+                <% } %> 
             </div>
         </div>
     </div>
