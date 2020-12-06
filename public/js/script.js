@@ -98,23 +98,23 @@ function search(ele)
     {
         let search = document.getElementById("search").value;
 
+        var xmlHttp = new XMLHttpRequest();
+
         switch(document.getElementById("filter").value)
         {
-        case "All":
-            break;
         case "Title":
+            xmlHttp.open( "GET", 'searchMovie/' + search, false );
             break;
         case "Person":
+            xmlHttp.open( "GET", 'searchMovieByPerson/' + search, false );
             break;
         case "Genre":
+            xmlHttp.open( "GET", 'searchMovieByGenre/' + search, false );
             break;
         }
-
-        return;
-        var xmlHttp = new XMLHttpRequest();
-        xmlHttp.open( "GET", 'searchMovie/' + search, false ); // false for synchronous request
+        
         xmlHttp.send(null);
-        document.location.href = "movie/" + JSON.parse(xmlHttp.responseText)[0].imdbID;
+        console.log(JSON.parse(xmlHttp.responseText));
     }
 }
 

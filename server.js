@@ -415,6 +415,30 @@ router.get('/searchMovie/:query', (req, res, next) =>
     res.send(movieMethods.methods.searchMovie(req.params.query));
 });
 
+router.get('/searchMovieByActor/:query', (req, res, next) =>
+{
+    res.send(movieMethods.methods.searchMovieByActor(req.params.query));
+});
+
+router.get('/searchMovieByDirector/:query', (req, res, next) =>
+{
+    res.send(movieMethods.methods.searchMovieByDirector(req.params.query));
+});
+
+router.get('/searchMovieByWriter/:query', (req, res, next) =>
+{
+    res.send(movieMethods.methods.searchMovieByWriter(req.params.query));
+});
+
+router.get('/searchMovieByPerson/:query', (req, res, next) =>
+{
+    res.send(movieMethods.methods.searchMovieByPerson(req.params.query));
+});
+
+router.get('/searchMovieByGenre/:query', (req, res, next) =>
+{
+    res.send(movieMethods.methods.searchMovieByGenre(req.params.query));
+});
 
 router.post('/createMovie', (req, res, next) =>
 {

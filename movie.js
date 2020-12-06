@@ -54,6 +54,14 @@ let methods =
         return moviesDB.filterArray(movie => movie.Actors.includes(query));
     },
 
+    searchMovieByPerson: function (query)
+    {
+        let movies = this.searchMovieByDirector(query);
+        movies.push(this.searchMovieByWriter(query));
+        movies.push(this.searchMovieByActor(query));
+        return movies;
+    },
+
     createMovie: function (newMovie)
     {
         if(!methods.isValidMovie(newMovie)) return null;
