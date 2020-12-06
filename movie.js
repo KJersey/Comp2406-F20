@@ -124,11 +124,11 @@ let methods =
         return similar;
     },
 
-    getMovieFromIMDB: function (URL) {
+    /*getMovieFromIMDB: function (URL) {
         let URL = "http://www.imdb.com/title/tt0058331/";
         String[] lines = loadStrings(url);
         String html = join(lines, ""); 
-    }
+    }*/
 };
 
 exports.moviesDB = moviesDB;

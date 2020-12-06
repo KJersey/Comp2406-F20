@@ -101,7 +101,7 @@ function renderMovies(movies)
         results = results + "<a href=\"/movie/" + movies[i].imdbID + "\">" + movies[i].Title + "<\a><br>";
     }
 
-    document.getElementById("results").innerHTML = results;
+    document.getElementById("searchResult").innerHTML = results;
 }
 
 function renderPeople(people)
@@ -114,7 +114,7 @@ function renderPeople(people)
         results = results + "<a href=\"/person/" + people[i].Name + "\">" + people[i].Name + "<\a><br>";
     }
 
-    document.getElementById("results").innerHTML = results;
+    document.getElementById("searchResult").innerHTML = results;
 }
 
 function search(ele)

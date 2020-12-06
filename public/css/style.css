@@ -14,6 +14,22 @@ header {
   background: white;
 }
 
+a:link {
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover {
+  color: inherit;
+}
+
+a:active {
+  color: inherit;
+}
+
 div.topBar #title-bar {
   position: absolute;
   top: 32px;
@@ -108,8 +124,16 @@ div.topBar #create-person{
   font-size: 12px;
 }
 
-#homepage div.searchBar #results *{
+#homepage div.results {
+  position: absolute;
+  top: 55%;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  vertical-align: bottom;
+
   /*Font*/
+  text-align: center;
+  color: #ffffff;
   font-size: 24px;
 }
 /*Sign In*/
