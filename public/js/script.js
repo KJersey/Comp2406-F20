@@ -93,7 +93,7 @@ function createReviewPage(imdbID)
 
 function editMovie(imdbID)
 {
-    console.log(imdbID);
+    //Not implemented
 }
 
 function renderMovies(movies)

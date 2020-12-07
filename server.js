@@ -1,3 +1,7 @@
+// December 2020
+// Malcolm Smith        101143404
+// Jersey Aubin-Déry    101079607
+
 const config = require('./config.js');
 const math = require('mathjs');
 const express = require('express');
@@ -23,12 +27,6 @@ let people = personMethods.peopleDB;
 function init()
 {
     console.log("Starting Up");
-
-    
-    users.import(JSON.stringify(require("./Default/Users.json")), false, false);
-    reviews.import(JSON.stringify(require("./Default/Reviews.json")), false, false);
-    movies.import(JSON.stringify(require("./Default/Movies.json")), false, false);
-    people.import(JSON.stringify(require("./Default/People.json")), false, false);
 
     console.log("Finished Starting");
 }
@@ -515,6 +513,7 @@ router.post('/createReview', (req, res, next) =>
     }
 });
 
+//Not implemented, may not work.
 router.get('/modifyMovie/:movieID&:prop=:val', (req, res, next) =>
 {
     res.send(movieMethods.methods.modifyMovie(req.params.movieID, req.params.prop, req.params.val));

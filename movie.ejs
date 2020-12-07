@@ -55,6 +55,20 @@
                         <p class="littletext"> <%= movie.Plot %> </p>
                     </div>
                     <div class="card">
+                        <p class="littletext">Directors</p>
+                        <% let directors = movie.Director.split(", ")%>
+                        <% for(let i in directors) {%>
+                            <p class="littletext"><a href="/person/<%= directors[i] %>"><%= directors[i] %></a></p>
+                        <% } %>
+                    </div>
+                    <div class="card">
+                        <p class="littletext">Writers</p>
+                        <% let writer = movie.Writer.split(", ")%>
+                        <% for(let i in writer) {%>
+                            <p class="littletext"><a href="/person/<%= writer[i].split(' (')[0] %>"><%= writer[i].split(' (')[0] %></a></p>
+                        <% } %>
+                    </div>
+                    <div class="card">
                         <p class="littletext">Actors/Actresses</p>
                         <% let actors = movie.Actors.split(", ")%>
                         <% for(let i in actors) {%>

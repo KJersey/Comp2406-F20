@@ -49,6 +49,9 @@ userMethods =
         if(!userMethods.isValidUser(newUser)) return null;
         if(userMethods.getUser(newUser.Username)) return null;
 
+        newUser.FollowedPeople = [];
+        newUser.FollowedUsers = [];
+
         usersDB.set(newUser.Username, newUser);
 
         return newUser;
@@ -213,6 +216,12 @@ userMethods =
         for(let m in recommended)
         {
             movies.push(movieMethods.methods.getMovie(recommended[m][0]));
+        }
+
+        //If there's not 4 recommendations, keep adding a random movie until there is
+        while(movies.length < 4)
+        {
+            movies.push(moviesDB.random(1)[0]);
         }
 
         return movies;
