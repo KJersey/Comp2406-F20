@@ -1,2 +1,2 @@
 exports.ip = 'http://localhost:';
-exports.port = 8000;
+exports.port = 3000;
