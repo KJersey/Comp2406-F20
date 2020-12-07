@@ -10,7 +10,10 @@
     "enmap": "^5.8.2",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "mathjs": "^8.1.0"
+    "mathjs": "^8.1.0",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "sync-request": "^6.1.0"
   },
   "devDependencies": {},
   "scripts": {

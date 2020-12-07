@@ -1,3 +1,4 @@
+const config = require('./config.js');
 const math = require('mathjs');
 const express = require('express');
 const app = express();
@@ -12,7 +13,7 @@ const { isContext } = require('vm');
 const userAndReviewMethods = require('./user.js');
 const personMethods = require('./person.js');
 const movieMethods = require('./movie.js');
-const port = 8000;
+const port = config.port;
 
 let users = userAndReviewMethods.usersDB;
 let reviews = userAndReviewMethods.reviewsDB;
@@ -22,6 +23,12 @@ let people = personMethods.peopleDB;
 function init()
 {
     console.log("Starting Up");
+
+    
+    users.import(JSON.stringify(require("./Default/Users.json")), false, false);
+    reviews.import(JSON.stringify(require("./Default/Reviews.json")), false, false);
+    movies.import(JSON.stringify(require("./Default/Movies.json")), false, false);
+    people.import(JSON.stringify(require("./Default/People.json")), false, false);
 
     console.log("Finished Starting");
 }
@@ -34,7 +41,8 @@ router.get('/', (req, res, next) =>
     res.render(path.join(__dirname + '/index'),
     {
         signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-        contributor: userAndReviewMethods.userMethods.isContributor(user)
+        contributor: userAndReviewMethods.userMethods.isContributor(user),
+        movie: null
     });
 });
 
@@ -47,7 +55,8 @@ router.get('/movie/:movieID', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-            contributor: userAndReviewMethods.userMethods.isContributor(user)
+            contributor: userAndReviewMethods.userMethods.isContributor(user),
+            movie: null
         });
         return;
     }
@@ -56,11 +65,14 @@ router.get('/movie/:movieID', (req, res, next) =>
 
     let ratings = [];
 
-    for(let rev in m.Ratings)
+    if(m.Ratings !== "N/A")
     {
-        let string = m.Ratings[rev].Value;
-        string = string.replace("%", "/100");
-        ratings.push({score: math.round(math.evaluate(string) * 100) / 10});
+        for(let rev in m.Ratings)
+        {
+            let string = m.Ratings[rev].Value;
+            string = string.replace("%", "/100");
+            ratings.push({score: math.round(math.evaluate(string) * 100) / 10});
+        }
     }
 
     res.render(path.join(__dirname + '/movie'),
@@ -82,7 +94,8 @@ router.get('/createMovie', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-            contributor: userAndReviewMethods.userMethods.isContributor(user)
+            contributor: userAndReviewMethods.userMethods.isContributor(user),
+            movie: null
         });
         return;
     } 
@@ -90,7 +103,8 @@ router.get('/createMovie', (req, res, next) =>
     res.render(path.join(__dirname + '/createmovie'),
     {
         signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-        contributor: userAndReviewMethods.userMethods.isContributor(user)
+        contributor: userAndReviewMethods.userMethods.isContributor(user),
+        movie: null
     });
 });
 
@@ -102,7 +116,8 @@ router.get('/createReview/:imdbID', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-            contributor: userAndReviewMethods.userMethods.isContributor(user)
+            contributor: userAndReviewMethods.userMethods.isContributor(user),
+            movie: null
         });
         return;
     } 
@@ -112,7 +127,8 @@ router.get('/createReview/:imdbID', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-            contributor: userAndReviewMethods.userMethods.isContributor(user)
+            contributor: userAndReviewMethods.userMethods.isContributor(user),
+            movie: null
         });
         return;
     } 
@@ -121,7 +137,8 @@ router.get('/createReview/:imdbID', (req, res, next) =>
     {
         signedin: userAndReviewMethods.userMethods.isSignedIn(req),
         contributor: userAndReviewMethods.userMethods.isContributor(user),
-        imdbID: req.params.imdbID
+        imdbID: req.params.imdbID,
+        movie: null
     });
 });
 
@@ -135,7 +152,8 @@ router.get('/person/:person', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-            contributor: userAndReviewMethods.userMethods.isContributor(user)
+            contributor: userAndReviewMethods.userMethods.isContributor(user),
+            movie: null
         });
         return;
     }
@@ -156,7 +174,10 @@ router.get('/person/:person', (req, res, next) =>
         m.push(movieMethods.methods.getMovie(person.Directed[i]));
     }
 
-    m = Array.from(new Set(m));
+    m = m.filter((movie, index, self) =>
+        index === self.findIndex((t) => (
+            t.place === movie.place && t.imdbID === movie.imdbID
+    )));
 
     let isFollowing = false;
     if(userAndReviewMethods.userMethods.isSignedIn(req))
@@ -173,7 +194,8 @@ router.get('/person/:person', (req, res, next) =>
         name: person.Name,
         movies: m,
         collaborators: collaborators,
-        isFollowing: isFollowing
+        isFollowing: isFollowing,
+        movie: null
     });
 });
 
@@ -184,7 +206,8 @@ router.get('/createPerson', (req, res, next) => {
         res.render(path.join(__dirname + '/404'),
         {
             signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-            contributor: userAndReviewMethods.userMethods.isContributor(user)
+            contributor: userAndReviewMethods.userMethods.isContributor(user),
+            movie: null
         });
         return;
     } 
@@ -192,7 +215,8 @@ router.get('/createPerson', (req, res, next) => {
     res.render(path.join(__dirname + '/createperson'),
     {
         signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-        contributor: userAndReviewMethods.userMethods.isContributor(user)
+        contributor: userAndReviewMethods.userMethods.isContributor(user),
+        movie: null
     });
 });
 
@@ -202,7 +226,8 @@ router.get('/signin', (req, res, next) =>
     res.render(path.join(__dirname + '/signin'),
     {
         signedin: false,
-        contributor: false
+        contributor: false,
+        movie: null
     });
 });
 
@@ -214,7 +239,8 @@ router.get('/userprofile', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-            contributor: userAndReviewMethods.userMethods.isContributor(user)
+            contributor: userAndReviewMethods.userMethods.isContributor(user),
+            movie: null
         });
         return;
     }
@@ -230,7 +256,8 @@ router.get('/userprofile/:user', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-            contributor: userAndReviewMethods.userMethods.isContributor(user)
+            contributor: userAndReviewMethods.userMethods.isContributor(user),
+            movie: null
         });
         return;
     }
@@ -274,7 +301,8 @@ router.get('/userprofile/:user', (req, res, next) =>
         followingPeople: followingPeople,
         isFollowing: isFollowing,
         reviews: r,
-        movies: m
+        movies: m,
+        movie: null
     });
 });
 
@@ -316,7 +344,7 @@ router.get('/users/:username', (req, res, next) =>
 
 router.get('/allUsers', (req, res, next) =>
 {
-    res.send(users); 
+    res.send(users.array());
 });
 
 router.get('/searchUser/:query', (req, res, next) =>
@@ -332,7 +360,8 @@ router.post('/updateUserFollowage', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin:false,
-            contributor: false
+            contributor: false,
+            movie: null
         });
         return;
     }
@@ -357,7 +386,8 @@ router.post('/updatePersonFollowage', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin:false,
-            contributor: false
+            contributor: false,
+            movie: null
         });
         return;
     }
@@ -382,7 +412,8 @@ router.post('/updateContributor', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin:false,
-            contributor: false
+            contributor: false,
+            movie: null
         });
         return;
     }
@@ -394,7 +425,7 @@ router.post('/updateContributor', (req, res, next) =>
 
 router.get('/isContributor/:username', (req, res, next) =>
 {
-    res.send(userAndReviewMethods.userMethods.userMethods.userMethods.isContributor(userAndReviewMethods.userMethods.getUser(req.params.username)));
+    res.send(userAndReviewMethods.userMethods.isContributor(userAndReviewMethods.userMethods.getUser(req.params.username)));
 });
 
 //--------------------------Movie API-----------------------//
@@ -407,17 +438,12 @@ router.get('/getMovie/:movieID', (req, res, next) =>
 
 router.get('/allMovies', (req, res, next) =>
 {
-    res.send(movies);
+    res.send(movies.array());
 });
 
 router.get('/searchMovie/:query', (req, res, next) =>
 {
     res.send(movieMethods.methods.searchMovie(req.params.query));
-});
-
-router.get('/searchMovieByActor/:query', (req, res, next) =>
-{
-    res.send(movieMethods.methods.searchMovieByActor(req.params.query));
 });
 
 router.get('/searchMovieByDirector/:query', (req, res, next) =>
@@ -428,6 +454,11 @@ router.get('/searchMovieByDirector/:query', (req, res, next) =>
 router.get('/searchMovieByWriter/:query', (req, res, next) =>
 {
     res.send(movieMethods.methods.searchMovieByWriter(req.params.query));
+});
+
+router.get('/searchMovieByActor/:query', (req, res, next) =>
+{
+    res.send(movieMethods.methods.searchMovieByActor(req.params.query));
 });
 
 router.get('/searchMovieByPerson/:query', (req, res, next) =>
@@ -448,7 +479,8 @@ router.post('/createMovie', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin:false,
-            contributor: false
+            contributor: false,
+            movie: null
         });
         return;
     }
@@ -468,7 +500,8 @@ router.post('/createReview', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin:false,
-            contributor: false
+            contributor: false,
+            movie: null
         });
         return;
     }
@@ -482,7 +515,6 @@ router.post('/createReview', (req, res, next) =>
     }
 });
 
-//Will be post
 router.get('/modifyMovie/:movieID&:prop=:val', (req, res, next) =>
 {
     res.send(movieMethods.methods.modifyMovie(req.params.movieID, req.params.prop, req.params.val));
@@ -495,7 +527,12 @@ router.get('/getSimilar/:title', (req, res, next) =>
 
 router.get('/getRecommended', (req, res, next) =>
 {
-    res.send(movieMethods.methods.getRecommendations(null));
+    res.send(userAndReviewMethods.userMethods.getRecommendedMovies(null));
+});
+
+router.get('/getRecommended/:username', (req, res, next) =>
+{
+    res.send(userAndReviewMethods.userMethods.getRecommendedMovies(req.params.username));
 });
 
 //--------------------------People API----------------------//
@@ -507,7 +544,7 @@ router.get('/people/:name', (req, res, next) =>
 
 router.get('/allPeople', (req, res, next) =>
 {
-    res.send(people);
+    res.send(people.array());
 });
 
 router.get('/searchPerson/:query', (req, res, next) =>
@@ -523,7 +560,8 @@ router.post('/createPerson', (req, res, next) =>
         res.render(path.join(__dirname + '/404'),
         {
             signedin:false,
-            contributor: false
+            contributor: false,
+            movie: null
         });
         return;
     }
@@ -543,7 +581,8 @@ router.get('*', (req, res, next) =>
     res.render(path.join(__dirname + '/404'),
     {
         signedin: userAndReviewMethods.userMethods.isSignedIn(req),
-        contributor: userAndReviewMethods.userMethods.isContributor(user)
+        contributor: userAndReviewMethods.userMethods.isContributor(user),
+        movie: null
     });
 });
 
@@ -566,3 +605,5 @@ app.use(bodyParser.urlencoded({
 app.use(router);
 init();
 app.listen(port);
+
+exports.port = port;

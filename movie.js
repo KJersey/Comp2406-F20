@@ -1,6 +1,7 @@
 //---------------------------------------MOVIE---------------------------------------
 
 const Enmap = require("enmap");
+const { peopleDB } = require("./person");
 
 let moviesDB = new Enmap({name: "movies"});
 
@@ -56,9 +57,16 @@ let methods =
 
     searchMovieByPerson: function (query)
     {
-        let movies = this.searchMovieByDirector(query);
-        movies.push(this.searchMovieByWriter(query));
-        movies.push(this.searchMovieByActor(query));
+        let movies = [];
+        movies = movies.concat(methods.searchMovieByDirector(query));
+        movies = movies.concat(methods.searchMovieByWriter(query));
+        movies = movies.concat(methods.searchMovieByActor(query));
+
+        movies = movies.filter((movie, index, self) =>
+        index === self.findIndex((t) => (
+            t.place === movie.place && t.imdbID === movie.imdbID
+        )));
+
         return movies;
     },
 
@@ -67,10 +75,45 @@ let methods =
         if(!methods.isValidMovie(newMovie)) return null;
         if(methods.getMovie(newMovie.imdbID)) return null;
 
-        for (prop in moviesDB[0]) {
+        for (prop in moviesDB.array()[0]) {
             if(!newMovie[prop]) {
                 newMovie[prop] = 'N/A';
             }
+        }
+
+        let directors = newMovie.Director.split(", ");
+        for(let i in directors)
+        {
+            if(!peopleDB.fetch(directors[i])) return null;
+        }
+
+        let writers = newMovie.Writer.split(", ");
+        for(let i in writers)
+        {
+            if(!peopleDB.fetch(writers[i])) return null;
+        }
+
+        let actors = newMovie.Actors.split(", ");
+        for(let i in actors)
+        {
+            if(!peopleDB.fetch(actors[i])) return null;
+        }
+
+        moviesDB.set(newMovie.imdbID, newMovie);
+
+        for(let i in directors)
+        {
+            peopleDB.push(directors[i], newMovie.imdbID, "Directed");
+        }
+
+        for(let i in writers)
+        {
+            peopleDB.push(writers[i], newMovie.imdbID, "Wrote");
+        }
+
+        for(let i in actors)
+        {
+            peopleDB.push(actors[i], newMovie.imdbID, "Acted");
         }
 
         moviesDB.set(newMovie.imdbID, newMovie);
@@ -80,7 +123,7 @@ let methods =
 
     deleteMovie: function (movieID)
     {
-        moviesDB.remove(movieID);
+        moviesDB.delete(movieID);
     },
 
     modifyMovie: function (movieID, prop, val)
@@ -98,6 +141,8 @@ let methods =
     getSimilar: function (imdbID)
     {
         let movie = methods.getMovie(imdbID);
+        if(!movie) return null;
+
         let genres = movie.Genre.split(", ");
         let rated = movie.Rated;
 

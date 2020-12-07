@@ -155,7 +155,7 @@ userMethods =
     getRecommendedMovies: function (userName)
     {
         let user = userMethods.getUser(userName);
-        if(!user) return [];
+        if(!user) return moviesDB.random(4);
 
         let recommended = new Map();
 

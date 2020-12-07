@@ -91,6 +91,11 @@ function createReviewPage(imdbID)
     document.location.href = "/createReview/" + imdbID;
 }
 
+function editMovie(imdbID)
+{
+    console.log(imdbID);
+}
+
 function renderMovies(movies)
 {
     let results = "";
@@ -194,11 +199,13 @@ function createMovie()
     let year = document.getElementById("year").value;
     let rated = document.getElementById("rated").value;
     let genre = document.getElementById("genre").value;
+    let director = document.getElementById("director").value;
+    let writer = document.getElementById("writer").value;
     let actors = document.getElementById("actors").value;
     let plot = document.getElementById("plot").value;
 
     // create basic movie object
-    let movie = {Title: title, imdbID: imdbID, Year: year, Rated: rated, Genre: genre, Actors: actors, Plot: plot};
+    let movie = {Title: title, imdbID: imdbID, Year: year, Rated: rated, Genre: genre, Director: director, Writer: writer, Actors: actors, Plot: plot};
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", '/createMovie', true);

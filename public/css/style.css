@@ -70,6 +70,12 @@ div.topBar #profile-page {
   left: 250px;
 }
 
+div.topBar #edit-movie {
+  /*Position*/
+  top: 32px;
+  left: 500px;
+}
+
 div.topBar #sign-in {
   /*Position*/
   top: 32px;
