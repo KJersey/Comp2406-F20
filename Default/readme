@@ -1,0 +1,3 @@
+Since we deved on Windows, which does not care about file capitalization,
+moving to Linux caused some issues. If reset.js complains, make sure all the .json
+in Default have capital first letters and lowercase for the rest. Thank you <3
