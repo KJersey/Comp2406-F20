@@ -237,7 +237,7 @@ function createPerson()
     let acted = document.getElementById("acted").value.split(", ");
 
     // create basic movie object
-    let person = {Name: name, Acted: acted, Directed: directed, Wrote: wrote};
+    let person = {Name: name, Directed: directed, Wrote: wrote, Acted: acted};
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", '/createperson', true);

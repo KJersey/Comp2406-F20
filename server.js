@@ -173,8 +173,8 @@ router.get('/person/:person', (req, res, next) =>
     }
 
     m = m.filter((movie, index, self) =>
-        index === self.findIndex((t) => (
-            t.place === movie.place && t.imdbID === movie.imdbID
+    index === self.findIndex((t) => (
+        t.place === movie.place && t.imdbID === movie.imdbID
     )));
 
     let isFollowing = false;

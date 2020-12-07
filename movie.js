@@ -1,7 +1,7 @@
 //---------------------------------------MOVIE---------------------------------------
 
 const Enmap = require("enmap");
-const { peopleDB } = require("./person");
+const peopleDB = require("./person");
 
 let moviesDB = new Enmap({name: "movies"});
 

@@ -5,6 +5,8 @@ const Enmap = require("enmap");
 let peopleDB = new Enmap({name: "people"});
 let moviesDB = new Enmap({name: "movies"});
 
+const movieMethods = require("./movie.js");
+
 let methods = 
 {
     isValidPerson: function (person)
@@ -35,7 +37,47 @@ let methods =
         if(!methods.isValidPerson(newPerson)) return null;
         if(methods.getPerson(newPerson.name)) return null;
 
+        if(newPerson.Directed.length && newPerson.Directed[0] === '') newPerson.Directed = [];
+        if(newPerson.Wrote.length && newPerson.Wrote[0] === '') newPerson.Wrote = [];
+        if(newPerson.Acted.length && newPerson.Acted[0] === '') newPerson.Acted = [];
+
+        for(let i in newPerson.Directed)
+        {
+            if(!movieMethods.methods.getMovie(newPerson.Directed[i])) return null;
+        }
+
+        for(let i in newPerson.Wrote)
+        {
+            if(!movieMethods.methods.getMovie(newPerson.Wrote[i])) return null;
+        }
+
+        for(let i in newPerson.Acted)
+        {
+            if(!movieMethods.methods.getMovie(newPerson.Acted[i])) return null;
+        }
+
         peopleDB.set(newPerson.Name, newPerson);
+
+        for(let i in newPerson.Directed)
+        {
+            let director = movieMethods.methods.getMovie(newPerson.Directed[i]).Director;
+            director = director + ", " + newPerson.Name;
+            moviesDB.set(newPerson.Directed[i], director, "Director");
+        }
+
+        for(let i in newPerson.Wrote)
+        {
+            let writer = movieMethods.methods.getMovie(newPerson.Wrote[i]).Writer;
+            writer = writer + ", " + newPerson.Name;
+            moviesDB.set(newPerson.Wrote[i], writer, "Writer");
+        }
+        
+        for(let i in newPerson.Acted)
+        {
+            let actors = movieMethods.methods.getMovie(newPerson.Acted[i]).Actors;
+            actors = actors + ", " + newPerson.Name;
+            moviesDB.set(newPerson.Acted[i], actors, "Actors");
+        }
 
         return newPerson;
     },
